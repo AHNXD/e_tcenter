@@ -24,7 +24,7 @@ class _ShowSubscribedCoursesPageState extends State<ShowSubscribedCoursesPage> {
         future: ApiService.getSubscribedCourses(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            var courses = snapshot.data["subscribed_courses"];
+            var courses = snapshot.data;
             return ListView.builder(
               itemCount: courses.length,
               itemBuilder: (BuildContext context, int index) {
