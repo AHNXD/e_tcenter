@@ -26,7 +26,11 @@ class CoursesCategoriesPage extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
-                          context, ShowCoursesFromCategoryPage.routeName);
+                          context, ShowCoursesFromCategoryPage.routeName,
+                          arguments: {
+                            "id": categories[index]["id"],
+                            "name": categories[index]["name"]
+                          });
                     },
                     child: Container(
                       margin: const EdgeInsets.all(16),
@@ -53,8 +57,10 @@ class CoursesCategoriesPage extends StatelessWidget {
                 },
               );
             } else {
-              return CircularProgressIndicator(
-                color: appColor,
+              return Center(
+                child: CircularProgressIndicator(
+                  color: appColor,
+                ),
               );
             }
           },

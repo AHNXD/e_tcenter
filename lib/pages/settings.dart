@@ -1,4 +1,5 @@
 import 'package:e_tcenter/pages/charge_wallet.dart';
+import 'package:e_tcenter/pages/showSubscribedCourses.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/login.dart';
@@ -83,7 +84,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 const Text('عرض الكورسات المشتركه',
                     style: TextStyle(color: Colors.pink)),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, ShowSubscribedCoursesPage.routeName);
+                    },
                     icon: const Icon(Icons.arrow_forward),
                     color: Colors.pink),
               ],

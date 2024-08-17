@@ -46,7 +46,7 @@ class CoursesAndTrainersPage extends StatelessWidget {
                       );
                     },
                     child: const Text(
-                      'THE CORCES',
+                      'THE COURSES',
                       style: TextStyle(
                           color: Color(0xFFBA63CB),
                           fontSize: 24,

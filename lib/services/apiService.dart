@@ -97,9 +97,89 @@ class ApiService {
     return response.statusCode;
   }
 
+  static Future transferToTeacher(int s_id, int t_id, int amount) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST', Uri.parse("$ip/student/$s_id/transfer-to-teacher/$t_id"));
+
+    request.body = json.encode({
+      "amount": amount,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    return response.statusCode;
+  }
+
+  static Future subscribe(int s_id, int c_id) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('POST', Uri.parse("$ip/courses/$s_id/$c_id/subscribe"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    return response.statusCode;
+  }
+
   static Future getAllCategories() async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('GET', Uri.parse("$ip/getallcategries"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      return js;
+    }
+    return null;
+  }
+
+  static Future getSubscribedCourses() async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'GET', Uri.parse("$ip/getSubscribedCourses/${studentData.id}"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      return js;
+    }
+    return null;
+  }
+
+  static Future getCoursesByCategory(int id) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse("$ip/searchCource/$id"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      return js;
+    }
+    return null;
+  }
+
+  static Future getCourseDetail(int id) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse("$ip/course/$id"));
 
     request.body = json.encode({});
     request.headers.addAll(headers);

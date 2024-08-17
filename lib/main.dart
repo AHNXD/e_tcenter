@@ -1,6 +1,8 @@
 import 'package:e_tcenter/pages/CoursesPage.dart';
 import 'package:e_tcenter/pages/charge_wallet.dart';
+import 'package:e_tcenter/pages/courseDetails.dart';
 import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
+import 'package:e_tcenter/pages/showSubscribedCourses.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/pages/Trainers.dart';
 import 'package:e_tcenter/pages/coursesCategories.dart';
@@ -24,8 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'E-TCenter',
       theme: ThemeData(
-        cardColor: const Color(0xFFF1AEFF),
-      ),
+          cardColor: const Color(0xFFF1AEFF), fontFamily: "cocon-next-arabic"),
       initialRoute: LoginPage.routeName,
       routes: {
         CoursesAndTrainersPage.routeName: (context) =>
@@ -40,7 +41,10 @@ class MyApp extends StatelessWidget {
         TrainersPage.routeName: (context) => const TrainersPage(),
         ChargeWalletPage.routeName: (context) => ChargeWalletPage(),
         ShowCoursesFromCategoryPage.routeName: (context) =>
-            ShowCoursesFromCategoryPage()
+            ShowCoursesFromCategoryPage(),
+        CourseDetailsPage.routeName: (context) => const CourseDetailsPage(),
+        ShowSubscribedCoursesPage.routeName: (context) =>
+            const ShowSubscribedCoursesPage()
       },
     );
   }
