@@ -1,17 +1,36 @@
+import 'package:e_tcenter/pages/charge_wallet.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/login.dart';
 
-class ProfilePage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   static const routeName = '/profile';
-  const ProfilePage({super.key});
+  const SettingsPage({super.key});
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  @override
+  void initState() {
+    super.initState();
+    // Fetch data here (e.g., from local storage or a quick network call)
+    fetchData();
+  }
+
+  void fetchData() async {
+    // Implement your data fetching logic here
+    // Update studentData and studentWalletData based on the fetched data
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('الملف الشخصي'),
+        title: const Text('الأعدادات'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -30,20 +49,43 @@ class ProfilePage extends StatelessWidget {
             Text(studentWalletData.value.toString(),
                 style: const TextStyle(color: Colors.pink, fontSize: 24)),
             const SizedBox(height: 10),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('تعديل الحساب', style: TextStyle(color: Colors.pink)),
-                Icon(Icons.edit, color: Colors.pink),
+                const Text('شحن الحساب', style: TextStyle(color: Colors.pink)),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, ChargeWalletPage.routeName)
+                          .then((value) {
+                        setState(() {});
+                      });
+                    },
+                    icon: const Icon(Icons.wallet),
+                    color: Colors.pink),
               ],
             ),
             const SizedBox(height: 20),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('عرض الكورسات المشتركه',
+                const Text('تعديل الحساب',
                     style: TextStyle(color: Colors.pink)),
-                Icon(Icons.arrow_forward, color: Colors.pink),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.edit),
+                    color: Colors.pink),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('عرض الكورسات المشتركه',
+                    style: TextStyle(color: Colors.pink)),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_forward),
+                    color: Colors.pink),
               ],
             ),
             const SizedBox(height: 20),

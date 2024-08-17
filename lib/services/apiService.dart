@@ -8,13 +8,13 @@ import 'package:e_tcenter/models/student.dart';
 import 'package:e_tcenter/models/student_wallets.dart';
 
 class ApiService {
-  static var ip = "http://192.168.1.8:8000/api/student";
+  static var ip = "http://192.168.1.2:8000/api";
   static String? token;
 
   static Future register(String first_name, String last_name, String email,
       String password) async {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request('POST', Uri.parse("$ip/register"));
+    var request = http.Request('POST', Uri.parse("$ip/student/register"));
 
     request.body = json.encode({
       "first_name": first_name,
@@ -25,14 +25,13 @@ class ApiService {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-    print(response.statusCode.toString());
 
     return response.statusCode;
   }
 
   static Future login(String email, String password) async {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request('POST', Uri.parse("$ip/login"));
+    var request = http.Request('POST', Uri.parse("$ip/student/login"));
 
     request.body = json.encode({
       'email': email,
@@ -41,12 +40,10 @@ class ApiService {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-    print(response.statusCode.toString());
 
     if (response.statusCode == 200) {
       var responseBody = await response.stream.bytesToString();
       var js = jsonDecode(responseBody);
-      print(responseBody);
       token = js['token'];
       var std = js['student'];
       var wal = js['StudentWallet'];
@@ -60,6 +57,61 @@ class ApiService {
     }
 
     return response.statusCode;
+  }
+
+  static Future getStudentWallet(int id) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'GET', Uri.parse("$ip/student/${studentData.id}/wallet-value"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      var newWallet = js['wallet_value'];
+
+      studentWalletData = StudentWallet(
+          id: studentWalletData.id,
+          student_id: studentWalletData.student_id,
+          value: newWallet);
+    }
+    return response.statusCode;
+  }
+
+  static Future chargeWallet(int amount) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST', Uri.parse("$ip/student/${studentData.id}/add-money"));
+
+    request.body = json.encode({
+      "amount": amount,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    return response.statusCode;
+  }
+
+  static Future getAllCategories() async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse("$ip/getallcategries"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      return js;
+    }
+    return null;
   }
   /*
   //get

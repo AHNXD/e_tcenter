@@ -1,10 +1,11 @@
 import 'package:e_tcenter/pages/CoursesPage.dart';
+import 'package:e_tcenter/pages/charge_wallet.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/pages/Trainers.dart';
-import 'package:e_tcenter/pages/courses.dart';
+import 'package:e_tcenter/pages/coursesCategories.dart';
 import 'package:e_tcenter/pages/courses_and_Trainers.dart';
 import 'package:e_tcenter/pages/home.dart';
-import 'package:e_tcenter/pages/profile.dart';
+import 'package:e_tcenter/pages/settings.dart';
 
 import 'pages/login.dart';
 import 'pages/register.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'E-Teach',
+      debugShowCheckedModeBanner: false,
+      title: 'E-TCenter',
       theme: ThemeData(
         cardColor: const Color(0xFFF1AEFF),
       ),
@@ -27,13 +29,15 @@ class MyApp extends StatelessWidget {
       routes: {
         CoursesAndTrainersPage.routeName: (context) =>
             const CoursesAndTrainersPage(),
-        CoursesPage.routeName: (context) => const CoursesPage(),
+        CoursesCategoriesPage.routeName: (context) =>
+            const CoursesCategoriesPage(),
         CourseForm.routeName: (context) => const CourseForm(),
         HomePage.routeName: (context) => const HomePage(),
         LoginPage.routeName: (context) => const LoginPage(),
         RegisterPage.routeName: (context) => const RegisterPage(),
-        ProfilePage.routeName: (context) => const ProfilePage(),
-        TrainersPage.routeName: (context) => const TrainersPage()
+        SettingsPage.routeName: (context) => const SettingsPage(),
+        TrainersPage.routeName: (context) => const TrainersPage(),
+        ChargeWalletPage.routeName: (context) => ChargeWalletPage()
       },
     );
   }

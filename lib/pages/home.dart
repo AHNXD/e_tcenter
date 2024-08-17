@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/pages/CoursesPage.dart';
 import 'package:e_tcenter/pages/Trainers.dart';
-import 'package:e_tcenter/pages/courses.dart';
+import 'package:e_tcenter/pages/coursesCategories.dart';
 import 'package:e_tcenter/pages/courses_and_Trainers.dart';
-import 'package:e_tcenter/pages/profile.dart';
+import 'package:e_tcenter/pages/settings.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,10 +17,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List pages = [
     const TrainersPage(),
-    const CoursesPage(),
+    const CoursesCategoriesPage(),
     const CoursesAndTrainersPage(),
     const CourseForm(),
-    const ProfilePage(),
+    const SettingsPage(),
   ];
 
   int _page = 2;
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           Icon(Icons.category, size: 30, color: Colors.white),
           Icon(Icons.book, size: 30, color: Colors.white),
           Icon(Icons.edit, size: 30, color: Colors.white),
-          Icon(Icons.data_array, size: 30, color: Colors.white),
+          Icon(Icons.settings, size: 30, color: Colors.white),
         ],
         color: const Color(0xFFF1AEFF),
         buttonBackgroundColor: Colors.black,
