@@ -39,9 +39,9 @@ class MyApp extends StatelessWidget {
         RegisterPage.routeName: (context) => const RegisterPage(),
         SettingsPage.routeName: (context) => const SettingsPage(),
         TrainersPage.routeName: (context) => const TrainersPage(),
-        ChargeWalletPage.routeName: (context) => ChargeWalletPage(),
+        ChargeWalletPage.routeName: (context) => const ChargeWalletPage(),
         ShowCoursesFromCategoryPage.routeName: (context) =>
-            ShowCoursesFromCategoryPage(),
+            const ShowCoursesFromCategoryPage(),
         CourseDetailsPage.routeName: (context) => const CourseDetailsPage(),
         ShowSubscribedCoursesPage.routeName: (context) =>
             const ShowSubscribedCoursesPage()

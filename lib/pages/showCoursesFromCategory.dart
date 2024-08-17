@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class ShowCoursesFromCategoryPage extends StatefulWidget {
   static const routeName = '/showCoursesFromCategory';
-  ShowCoursesFromCategoryPage({super.key});
+  const ShowCoursesFromCategoryPage({super.key});
 
   @override
   State<ShowCoursesFromCategoryPage> createState() =>

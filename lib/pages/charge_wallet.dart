@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ChargeWalletPage extends StatefulWidget {
   static const routeName = '/charge';
-  ChargeWalletPage({super.key});
+  const ChargeWalletPage({super.key});
 
   @override
   State<ChargeWalletPage> createState() => _ChargeWalletPageState();
