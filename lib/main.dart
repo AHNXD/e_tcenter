@@ -1,5 +1,6 @@
 import 'package:e_tcenter/pages/CoursesPage.dart';
 import 'package:e_tcenter/pages/charge_wallet.dart';
+import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/pages/Trainers.dart';
 import 'package:e_tcenter/pages/coursesCategories.dart';
@@ -37,7 +38,9 @@ class MyApp extends StatelessWidget {
         RegisterPage.routeName: (context) => const RegisterPage(),
         SettingsPage.routeName: (context) => const SettingsPage(),
         TrainersPage.routeName: (context) => const TrainersPage(),
-        ChargeWalletPage.routeName: (context) => ChargeWalletPage()
+        ChargeWalletPage.routeName: (context) => ChargeWalletPage(),
+        ShowCoursesFromCategoryPage.routeName: (context) =>
+            ShowCoursesFromCategoryPage()
       },
     );
   }

@@ -36,8 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   http: any
-  shared_preferences: ^2.3.1
-  curved_navigation_bar: ^1.0.6
+  shared_preferences: any
+  curved_navigation_bar: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
