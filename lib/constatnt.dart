@@ -1,5 +1,5 @@
 import 'package:e_tcenter/models/student.dart';
-import 'package:e_tcenter/models/student_wallets.dart';
+import 'package:e_tcenter/models/wallets.dart';
 import 'package:flutter/material.dart';
 
 Color appColor = const Color(0xFFF1AEFF);
@@ -9,8 +9,7 @@ Student studentData = const Student(
   lastName: "",
   email: "Guest@gmail.com",
 );
-StudentWallet studentWalletData =
-    const StudentWallet(id: 0, student_id: 0, value: 0);
+Wallet studentWalletData = const Wallet(id: 0, student_id: 0, value: 0);
 
 void resetData() {
   studentData = const Student(
@@ -19,7 +18,7 @@ void resetData() {
     lastName: "",
     email: "Guest@gmail.com",
   );
-  studentWalletData = const StudentWallet(id: 0, student_id: 0, value: 0);
+  studentWalletData = const Wallet(id: 0, student_id: 0, value: 0);
 }
 
 void message(String error, Color c, BuildContext context) {

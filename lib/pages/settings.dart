@@ -50,49 +50,53 @@ class _SettingsPageState extends State<SettingsPage> {
             Text(studentWalletData.value.toString(),
                 style: const TextStyle(color: Colors.pink, fontSize: 24)),
             const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('شحن الحساب', style: TextStyle(color: Colors.pink)),
-                IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, ChargeWalletPage.routeName)
-                          .then((value) {
-                        setState(() {});
-                      });
-                    },
-                    icon: const Icon(Icons.wallet),
-                    color: Colors.pink),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('تعديل الحساب',
-                    style: TextStyle(color: Colors.pink)),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    color: Colors.pink),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('عرض الكورسات المشتركه',
-                    style: TextStyle(color: Colors.pink)),
-                IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, ShowSubscribedCoursesPage.routeName);
-                    },
-                    icon: const Icon(Icons.arrow_forward),
-                    color: Colors.pink),
-              ],
-            ),
-            const SizedBox(height: 20),
+            if (studentData.firstName == "Guset")
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('شحن الحساب',
+                      style: TextStyle(color: Colors.pink)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, ChargeWalletPage.routeName)
+                            .then((value) {
+                          setState(() {});
+                        });
+                      },
+                      icon: const Icon(Icons.wallet),
+                      color: Colors.pink),
+                ],
+              ),
+            if (studentData.firstName == "Guset") const SizedBox(height: 20),
+            if (studentData.firstName == "Guset")
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('تعديل الحساب',
+                      style: TextStyle(color: Colors.pink)),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.edit),
+                      color: Colors.pink),
+                ],
+              ),
+            if (studentData.firstName == "Guset") const SizedBox(height: 20),
+            if (studentData.firstName == "Guset")
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('عرض الكورسات المشتركه',
+                      style: TextStyle(color: Colors.pink)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, ShowSubscribedCoursesPage.routeName);
+                      },
+                      icon: const Icon(Icons.arrow_forward),
+                      color: Colors.pink),
+                ],
+              ),
+            if (studentData.firstName == "Guset") const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

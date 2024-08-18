@@ -116,20 +116,77 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 30.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            var status = await ApiService.loginStudent(
+                                emailController.text, passwordController.text);
+                            message(
+                                status == 200
+                                    ? 'Welcome!'
+                                    : 'Invalid email or password.',
+                                status == 200 ? Colors.green : Colors.red,
+                                context);
+                            if (status == 200) {
+                              Navigator.popAndPushNamed(
+                                  context, HomePage.routeName);
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color(0xFFF1AEFF), // لون الزر
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          child: const Text(
+                            'Login as Student',
+                            style: TextStyle(
+                                fontSize: 18, color: Color(0xFFBA63CB)),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            var status = await ApiService.loginStudent(
+                                emailController.text, passwordController.text);
+                            message(
+                                status == 200
+                                    ? 'Welcome!'
+                                    : 'Invalid email or password.',
+                                status == 200 ? Colors.green : Colors.red,
+                                context);
+                            if (status == 200) {
+                              Navigator.popAndPushNamed(
+                                  context, HomePage.routeName);
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color(0xFFF1AEFF), // لون الزر
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          child: const Text(
+                            'Login as Teacher',
+                            style: TextStyle(
+                                fontSize: 18, color: Color(0xFFBA63CB)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     ElevatedButton(
                       onPressed: () async {
-                        var status = await ApiService.login(
-                            emailController.text, passwordController.text);
-                        message(
-                            status == 200
-                                ? 'Welcome!'
-                                : 'Invalid email or password.',
-                            status == 200 ? Colors.green : Colors.red,
-                            context);
-                        if (status == 200) {
-                          Navigator.popAndPushNamed(
-                              context, HomePage.routeName);
-                        }
+                        Navigator.pushNamed(context, HomePage.routeName);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFF1AEFF), // لون الزر
@@ -140,7 +197,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        'LOG IN',
+                        'Guest',
                         style:
                             TextStyle(fontSize: 18, color: Color(0xFFBA63CB)),
                       ),

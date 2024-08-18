@@ -68,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: ElevatedButton(
                 onPressed: () async {
-                  var status = await ApiService.register(
+                  var status = await ApiService.registerStudent(
                       firstNameController.text,
                       lastNameController.text,
                       emailController.text,

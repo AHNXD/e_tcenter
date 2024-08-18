@@ -20,26 +20,29 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
         if (snapshot.hasData) {
           var course = snapshot.data["course"];
           return Scaffold(
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                int state =
-                    await ApiService.subscribe(studentData.id, id["id"]);
-                if (state == 200) {
-                  state = await ApiService.getStudentWallet(studentData.id);
-                  message("Succes.", Colors.green, context);
-                } else if (state == 400) {
-                  message("You dont have enough money in your wallet.",
-                      Colors.red, context);
-                } else {
-                  message(
-                      "There was an error with subscribtion please try again.",
-                      Colors.red,
-                      context);
-                }
-              },
-              child:
-                  const Icon(Icons.add), // if the couse here make it Icon.check
-            ),
+            floatingActionButton: studentData.firstName == "Guset"
+                ? FloatingActionButton(
+                    onPressed: () async {
+                      int state =
+                          await ApiService.subscribe(studentData.id, id["id"]);
+                      if (state == 200) {
+                        state =
+                            await ApiService.getStudentWallet(studentData.id);
+                        message("Succes.", Colors.green, context);
+                      } else if (state == 400) {
+                        message("You dont have enough money in your wallet.",
+                            Colors.red, context);
+                      } else {
+                        message(
+                            "There was an error with subscribtion please try again.",
+                            Colors.red,
+                            context);
+                      }
+                    },
+                    child: const Icon(
+                        Icons.add), // if the couse here make it Icon.check
+                  )
+                : null,
             appBar: AppBar(
               title: Text(course["course_name"]),
               centerTitle: true,

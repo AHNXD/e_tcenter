@@ -2,17 +2,17 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:e_tcenter/models/wallets.dart';
 import 'package:http/http.dart' as http;
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/models/student.dart';
-import 'package:e_tcenter/models/student_wallets.dart';
 
 class ApiService {
-  static var ip = "http://192.168.1.2:8000/api";
+  static var ip = "http://192.168.1.3:8000/api";
   static String? token;
 
-  static Future register(String first_name, String last_name, String email,
-      String password) async {
+  static Future registerStudent(String first_name, String last_name,
+      String email, String password) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse("$ip/student/register"));
 
@@ -29,7 +29,7 @@ class ApiService {
     return response.statusCode;
   }
 
-  static Future login(String email, String password) async {
+  static Future loginStudent(String email, String password) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse("$ip/student/login"));
 
@@ -52,7 +52,64 @@ class ApiService {
           firstName: std['first_name'],
           lastName: std['last_name'],
           email: std['email']);
-      studentWalletData = StudentWallet(
+      studentWalletData = Wallet(
+          id: wal['id'], student_id: wal["student_id"], value: wal["value"]);
+    }
+
+    return response.statusCode;
+  }
+
+  static Future registerTeacher(
+      String first_name,
+      String last_name,
+      String email,
+      String password,
+      String specialization,
+      int years_of_experience,
+      String previous_place_of_work) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse("$ip/teacher/register"));
+
+    request.body = json.encode({
+      "first_name": first_name,
+      "last_name": last_name,
+      "email": email,
+      "password": password,
+      "specialization": specialization,
+      "years_of_experience": years_of_experience,
+      "previous_place_of_work": previous_place_of_work
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    return response.statusCode;
+  }
+
+  static Future loginTeacher(String email, String password) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse("$ip/teacher/login"));
+
+    request.body = json.encode({
+      'email': email,
+      'password': password,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      token = js['token'];
+      var std = js['student'];
+      var wal = js['StudentWallet'];
+      studentData = Student(
+          id: std['id'],
+          firstName: std['first_name'],
+          lastName: std['last_name'],
+          email: std['email']);
+      studentWalletData = Wallet(
           id: wal['id'], student_id: wal["student_id"], value: wal["value"]);
     }
 
@@ -74,7 +131,7 @@ class ApiService {
       var js = jsonDecode(responseBody);
       var newWallet = js['wallet_value'];
 
-      studentWalletData = StudentWallet(
+      studentWalletData = Wallet(
           id: studentWalletData.id,
           student_id: studentWalletData.student_id,
           value: newWallet);
