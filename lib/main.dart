@@ -1,4 +1,5 @@
 import 'package:e_tcenter/pages/CoursesPage.dart';
+import 'package:e_tcenter/pages/TrainerDetailsScreen.dart';
 import 'package:e_tcenter/pages/charge_wallet.dart';
 import 'package:e_tcenter/pages/courseDetails.dart';
 import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
             const ShowCoursesFromCategoryPage(),
         CourseDetailsPage.routeName: (context) => const CourseDetailsPage(),
         ShowSubscribedCoursesPage.routeName: (context) =>
-            const ShowSubscribedCoursesPage()
+            const ShowSubscribedCoursesPage(),
+        TrainerDetailsPage.routeName: (context) => const TrainerDetailsPage(),
       },
     );
   }

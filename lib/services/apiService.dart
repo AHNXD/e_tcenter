@@ -8,7 +8,7 @@ import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/models/student.dart';
 
 class ApiService {
-  static var ip = "http://192.168.1.3:8000/api";
+  static var ip = "http://192.168.1.11:8000/api";
   static String? token;
 
   static Future registerStudent(String first_name, String last_name,

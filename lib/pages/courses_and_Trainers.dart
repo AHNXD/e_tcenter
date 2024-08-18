@@ -56,9 +56,9 @@ class CoursesAndTrainersPage extends StatelessWidget {
 
 
   Future<Course> fetchCourse(int id) async {
-    var headers = {'Content-Type': 'application/json'};
-    final response = await http.get(Uri.parse('http://192.168.227.168:8000/api/courses'));
 
+    final response = await http.get(Uri.parse('http://0.0.0.0:8000/api/courses'));
+   // print('Status Code: ${response.statusCode}');
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       return Course.fromJson(jsonResponse['course']);
@@ -69,14 +69,14 @@ class CoursesAndTrainersPage extends StatelessWidget {
 }
 
 class Course {
-  final String teacherName;
+  // final String teacherName;
   final String courseName;
   final String description;
   final double price;
   final String category;
 
   Course({
-    required this.teacherName,
+    // required this.teacherName,
     required this.courseName,
     required this.description,
     required this.price,
@@ -85,9 +85,9 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
-      teacherName: json['teacher_name'],
-      courseName: json['course_name'],
-      description: json['description'],
+      // teacherName: json['teacher_name'],
+      courseName: json['name'],
+      description: json['discription'],
       price: json['price'].toDouble(),
       category: json['category'],
     );
@@ -125,8 +125,8 @@ class CourseCard extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
             SizedBox(height: 8),
-            Text('المدرس: ${course.teacherName}', style: TextStyle(fontSize: 16)),
-            SizedBox(height: 8),
+            // Text('المدرس: ${course.teacherName}', style: TextStyle(fontSize: 16)),
+            // SizedBox(height: 8),
             Text('الوصف: ${course.description}', style: TextStyle(fontSize: 14)),
             SizedBox(height: 8),
             Text('السعر: \$${course.price}', style: TextStyle(fontSize: 16)),

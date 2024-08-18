@@ -1,3 +1,4 @@
+import 'package:e_tcenter/pages/TrainerDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/pages/courseDetails.dart';
 import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
@@ -37,27 +38,30 @@ class _TrainersPageState extends State<TrainersPage> {
 
   Future<void> fetchTeachersData() async {
     // جلب بيانات المعلمين من الروابط
-    final namesResponse = await http.get(Uri.parse('http://192.168.227.168:8000/api/teachers/full-names'));
-    final coursesResponse = await http.get(Uri.parse('http://192.168.227.168:8000/api/teachers/id')); //  تأكد من تعديل هذا الرابط
+    final namesResponse = await http.get(Uri.parse('http://0.0.0.0:8000/api/teacher/search'));
+    //  تأكد من تعديل هذا الرابط
     var headers = {'Content-Type': 'application/json'};
     print('Status Code: ${namesResponse.statusCode}');
-    print('Status Code: ${coursesResponse.statusCode}');
-    if (namesResponse.statusCode == 200 && coursesResponse.statusCode == 200) {
-      final namesData = json.decode(namesResponse.body);
-      final coursesData = json.decode(coursesResponse.body);
 
+    if (namesResponse.statusCode == 200 ) {
+      final namesData = json.decode(namesResponse.body);
+var data=namesData["teachers"];
+      print(data);
       //  دمج البيانات  (قد تحتاج إلى تعديل هذه الخطوة بناءً على بنية البيانات من  API)
-      for (var i = 0; i < namesData.length; i++) {
+      for (var i = 0; i < data.length; i++) {
         teachers.add({
-          'name': namesData[i],
-          'coursesCount': coursesData[i]['coursesCount'], //  تغيير  'coursesCount'  إذا لزم الأمر
-          'subject': coursesData[i]['subject'], //  تغيير  'subject'  إذا لزم الأمر
-        });
-      }
+          'full_name': data[i]["full_name"],
+         // 'course_names': coursesData[i]['coursesCount'], //  تغيير  'coursesCount'  إذا لزم الأمر
+        'specialization': data[i]['specialization'], //  تغيير  'subject'  إذا لزم الأمر
+
+        }
+
+    );
+           }
 
       setState(() {});
     } else {
-   print("not good");
+ //  print("not good");
     }
   }
 
@@ -95,7 +99,7 @@ class _TrainersPageState extends State<TrainersPage> {
               'نعرض جميع المعلمين المحترفين',
               style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
                 itemCount: teachers.length,
@@ -105,24 +109,28 @@ class _TrainersPageState extends State<TrainersPage> {
                     leading: Container(
                       width: 60,
                       height: 60,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey[200],
+                        color: Colors.grey,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+
                         children: [
-                          Text(
-                            '${teacher['coursesCount']}', //  عدد الدورات
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                          // Text(
+                          //   '${teacher['coursesCount']}', //  عدد الدورات
+                          //   style: TextStyle(fontWeight: FontWeight.bold),
+                          // ),
                           Icon(Icons.person, size: 30),
                         ],
                       ),
                     ),
-                    title: Text(teacher['name']),
-                    subtitle: Text(teacher['subject']), //  مادة التدريس
-                  );
+                    title: Text(teacher['full_name'] ?? ""),
+                    subtitle: Text(teacher['specialization']), //  مادة التدريس
+                    onTap: () {
+                       Navigator.pushNamed(context,TrainerDetailsPage.routeName );//  تأكد من  أن  teacher['id']  موجود  في  البيانات
+
+                    },  );
                 },
               ),
             ),
