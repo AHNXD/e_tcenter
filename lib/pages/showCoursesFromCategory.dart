@@ -20,23 +20,26 @@ class _ShowCoursesFromCategoryPageState
     Map category = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      flexibleSpace: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
-        child: Container(
-          color: appColor, // Replace with your desired color
-          padding: const EdgeInsets.only(left: 20, bottom: 20),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
+          child: Container(
+            color: appColor, // Replace with your desired color
+            padding: const EdgeInsets.only(left: 20, bottom: 20),
             alignment: Alignment.bottomCenter,
-          child: Text(
-            category["name"],
-            style: const TextStyle(
-                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+            child: Text(
+              category["name"],
+              style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
           ),
         ),
       ),
-    ),
       body: FutureBuilder(
         future: ApiService.getCoursesByCategory(category["id"]),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -49,8 +52,7 @@ class _ShowCoursesFromCategoryPageState
                   onTap: () {
                     Navigator.pushNamed(context, CourseDetailsPage.routeName,
                         arguments: {
-                          "id": cources[index]["id"],
-                          "teacher_id": cources[index]["teacher_id"]
+                          cources[index]["id"],
                         });
                   },
                   child: Container(

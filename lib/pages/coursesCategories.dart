@@ -12,23 +12,26 @@ class CoursesCategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      flexibleSpace: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
-        child: Container(
-          color: appColor, // Replace with your desired color
-         padding: const EdgeInsets.only(left: 20, bottom: 20),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
+          child: Container(
+            color: appColor, // Replace with your desired color
+            padding: const EdgeInsets.only(left: 20, bottom: 20),
             alignment: Alignment.bottomCenter,
-          child: const Text(
-            'أنواع الكورسات',
-            style: TextStyle(
-                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+            child: const Text(
+              'أنواع الكورسات',
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
           ),
         ),
       ),
-    ),
       body: Center(
         child: FutureBuilder(
           future: ApiService.getAllCategories(),
@@ -48,21 +51,27 @@ class CoursesCategoriesPage extends StatelessWidget {
                           });
                     },
                     child: Container(
-                      margin: const EdgeInsets.all(16),
-                      height: 50,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 197, 197, 197),
+                          borderRadius: BorderRadius.circular(50)),
+                      margin: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
+                      height: 100,
                       width: double.infinity,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Icon(
                             Icons.category_outlined,
-                            size: 50,
+                            size: 64,
                             color: appColor,
                           ),
-                          Text(categories[index]["name"]),
+                          Text(categories[index]["name"],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20)),
                           Icon(
                             Icons.category_outlined,
-                            size: 50,
+                            size: 64,
                             color: appColor,
                           ),
                         ],

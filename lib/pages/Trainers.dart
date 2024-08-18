@@ -2,9 +2,6 @@ import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/TrainerDetailsScreen.dart';
 import 'package:e_tcenter/services/apiService.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 class TrainersPage extends StatefulWidget {
   static const routeName = '/trainer';
@@ -48,6 +45,7 @@ class _TrainersPageState extends State<TrainersPage> {
                 var data = snapshot.data;
                 for (var i = 0; i < data.length; i++) {
                   teachers.add({
+                    'id': data[i]["id"],
                     'full_name': data[i]["full_name"],
                     'specialization': data[i]['specialization'],
                   });
@@ -69,10 +67,6 @@ class _TrainersPageState extends State<TrainersPage> {
                           child: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // Text(
-                              //   '${teacher['coursesCount']}', //  عدد الدورات
-                              //   style: TextStyle(fontWeight: FontWeight.bold),
-                              // ),
                               Icon(Icons.person, size: 30),
                             ],
                           ),
@@ -82,9 +76,8 @@ class _TrainersPageState extends State<TrainersPage> {
                             Text(teacher['specialization']), //  مادة التدريس
                         onTap: () {
                           Navigator.pushNamed(
-                              context,
-                              TrainerDetailsPage
-                                  .routeName); //  تأكد من  أن  teacher['id']  موجود  في  البيانات
+                              context, TrainerDetailsPage.routeName,
+                              arguments: teacher["id"]);
                         },
                       );
                     },

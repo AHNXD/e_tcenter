@@ -7,6 +7,7 @@ import 'package:e_tcenter/models/wallets.dart';
 import 'package:http/http.dart' as http;
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/models/student.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ApiService {
   static var ip = "http://192.168.45.33:8000/api";
@@ -320,7 +321,7 @@ class ApiService {
 
   static Future getTeachersData() async {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request('GET', Uri.parse("$ip/teacher/search"));
+    var request = http.Request('GET', Uri.parse("$ip/teacher/full-names"));
 
     request.body = json.encode({});
     request.headers.addAll(headers);
@@ -333,5 +334,68 @@ class ApiService {
       return data;
     }
     return null;
+  }
+
+  static Future getTeacherData(int id) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse("$ip/teacher/$id"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      var data = js["teacher_info"];
+      return data;
+    }
+    return null;
+  }
+
+  static Future addVideo(int id, String title, String description,
+      XFile videoFile, XFile thumbnailFile) async {
+    final uri = Uri.parse(
+        "$ip/teacher/add/video"); // Replace `$ip` with your actual IP address
+    final request = http.MultipartRequest('POST', uri);
+
+    request.fields['course_id'] = id.toString(); // Convert id to String
+    request.fields['title'] = title;
+    request.fields['discription'] = description;
+
+    try {
+      // Read video file as a stream (asynchronous)
+      final videoStream = videoFile.openRead();
+
+      // Add video file to the request
+      request.files.add(http.MultipartFile(
+        'file',
+        videoStream,
+        await videoFile.length(), // Get file length asynchronously
+        filename: videoFile.name,
+      ));
+
+      // Handle thumbnail upload (if needed)
+      if (thumbnailFile != null) {
+        // Read thumbnail file as a stream (asynchronous)
+        final thumbnailStream = thumbnailFile.openRead();
+
+        // Add thumbnail file to the request
+        request.files.add(http.MultipartFile(
+          'thumbnail',
+          thumbnailStream,
+          await thumbnailFile.length(), // Get file length asynchronously
+          filename: thumbnailFile.name,
+        ));
+      }
+
+      final response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+
+      return response.statusCode;
+    } catch (error) {
+      print('Error uploading video and thumbnail: $error');
+      // Handle other errors (e.g., show error message)
+    }
   }
 }

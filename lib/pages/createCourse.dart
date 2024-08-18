@@ -19,13 +19,14 @@ class _CourseFormState extends State<CreateCoursPage> {
   bool accepted = false;
   double rate = 0.0;
   var cat = [];
-  int selectedCatIndex = 0;
-  int selectedValue = 0;
+
+  int? _selectedValue = null;
+  final List<DropdownMenuItem<int>> _dropdownItems = [];
 
   void submitData() async {
     try {
       Course course = Course(
-        categoryId: selectedCatIndex,
+        categoryId: _selectedValue!,
         teacherId: teacherData.id,
         name: nameController.text,
         price: int.parse(priceController.text),
@@ -76,31 +77,28 @@ class _CourseFormState extends State<CreateCoursPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(selectedCatIndex.toString()),
             FutureBuilder(
               future: ApiService.getAllCategories(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   cat = snapshot.data["categories"];
-                  selectedCatIndex = cat[0]['id'];
+                  _dropdownItems.clear();
+                  for (int i = 0; i < cat.length; i++) {
+                    _dropdownItems.add(DropdownMenuItem<int>(
+                      value: cat[i]["id"],
+                      child: Text(cat[i]["name"]),
+                    ));
+                  }
+
                   return DropdownButton<int>(
-                    isExpanded: true,
-                    value: selectedCatIndex,
-                    icon: Icon(
-                      Icons.category,
-                      color: appColor,
-                    ),
-                    items: cat
-                        .map((item) => DropdownMenuItem<int>(
-                              value: item['id'],
-                              child: Text(item["name"]),
-                            ))
-                        .toList(),
+                    value: _selectedValue,
+                    hint: const Text('Please select a category'),
                     onChanged: (int? newValue) {
                       setState(() {
-                        selectedCatIndex = newValue!;
+                        _selectedValue = newValue;
                       });
                     },
+                    items: _dropdownItems,
                   );
                 } else {
                   return Center(

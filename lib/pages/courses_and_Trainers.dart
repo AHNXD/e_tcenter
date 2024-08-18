@@ -1,4 +1,6 @@
 import 'package:e_tcenter/constatnt.dart';
+import 'package:e_tcenter/pages/TrainerDetailsScreen.dart';
+import 'package:e_tcenter/pages/courseDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -34,8 +36,8 @@ class CoursesAndTrainersPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Text(
               'الكورسات',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -59,20 +61,26 @@ class CoursesAndTrainersPage extends StatelessWidget {
 
                 return Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 150,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: courses.length,
                         itemBuilder: (context, index) {
-                          return CourseCard(course: courses[index]);
+                          return GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, CourseDetailsPage.routeName,
+                                    arguments: courses[index].id);
+                              },
+                              child: CourseCard(course: courses[index]));
                         },
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
                       child: Text(
-                        'المعلمين:',
+                        'المعلمين',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -96,13 +104,19 @@ class CoursesAndTrainersPage extends StatelessWidget {
 
                         final trainers = snapshot.data!;
 
-                        return Container(
+                        return SizedBox(
                           height: 150,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: trainers.length,
                             itemBuilder: (context, index) {
-                              return TrainerCard(trainer: trainers[index]);
+                              return GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, TrainerDetailsPage.routeName,
+                                        arguments: trainers[index].id);
+                                  },
+                                  child: TrainerCard(trainer: trainers[index]));
                             },
                           ),
                         );
@@ -162,6 +176,7 @@ class CoursesAndTrainersPage extends StatelessWidget {
 }
 
 class Course {
+  final int id;
   final String teacherName;
   final String courseName;
   final String description;
@@ -169,6 +184,7 @@ class Course {
   final String category;
 
   Course({
+    required this.id,
     required this.teacherName,
     required this.courseName,
     required this.description,
@@ -178,6 +194,7 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
+      id: json['id'] ?? 0,
       teacherName: json['teacher_name'] ?? 'Unknown',
       courseName: json['name'] ?? 'Unnamed Course',
       description: json['discription'] ?? 'No description available',
@@ -188,11 +205,13 @@ class Course {
 }
 
 class Trainer {
+  final int id;
   final String fullName; // اسم المعلم
   final String specialization; // تخصص المعلم
   final String email; // بريد المعلم
 
   Trainer({
+    required this.id,
     required this.fullName,
     required this.specialization,
     required this.email,
@@ -200,6 +219,7 @@ class Trainer {
 
   factory Trainer.fromJson(Map<String, dynamic> json) {
     return Trainer(
+      id: json['id'] ?? 0,
       fullName: json['full_name'] ?? 'Unnamed Teacher',
       specialization: json['specialization'] ?? 'No specialization',
       email: json['email'] ?? 'No email',
@@ -216,7 +236,7 @@ class CourseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 120,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -232,10 +252,11 @@ class CourseCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               course.courseName,
+              textAlign: TextAlign.center,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 4),
@@ -257,7 +278,7 @@ class TrainerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 120,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -273,6 +294,7 @@ class TrainerCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Icon(
               Icons.person,

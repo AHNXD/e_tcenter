@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: any
   curved_navigation_bar: any
   appinio_video_player: ^1.2.2
+  image_picker: ^1.1.2
   
 dev_dependencies:
   flutter_test:

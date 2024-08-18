@@ -1,3 +1,4 @@
+import 'package:e_tcenter/pages/addVideo.dart';
 import 'package:e_tcenter/pages/createCourse.dart';
 import 'package:e_tcenter/pages/TrainerDetailsScreen.dart';
 import 'package:e_tcenter/pages/charge_wallet.dart';
@@ -51,7 +52,8 @@ class MyApp extends StatelessWidget {
         ShowVideoPage.routeName: (context) => const ShowVideoPage(),
         TrainerDetailsPage.routeName: (context) => const TrainerDetailsPage(),
         ShowTeacherCoursesPage.routeName: (context) =>
-            const ShowTeacherCoursesPage()
+            const ShowTeacherCoursesPage(),
+        AddVideoPage.routeName: (context) => const AddVideoPage(),
       },
     );
   }
