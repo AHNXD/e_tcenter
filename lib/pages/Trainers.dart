@@ -28,7 +28,7 @@ class _TrainersPageState extends State<TrainersPage> {
   Future<void> fetchTeachersData() async {
     // جلب بيانات المعلمين من الروابط
     final namesResponse =
-        await http.get(Uri.parse('http://192.168.1.3:8000/api/teacher/search'));
+        await http.get(Uri.parse('http://192.168.227.168:8000/api/teacher/search'));
     //  تأكد من تعديل هذا الرابط
     var headers = {'Content-Type': 'application/json'};
     print('Status Code: ${namesResponse.statusCode}');
