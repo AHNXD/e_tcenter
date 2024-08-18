@@ -2,10 +2,8 @@ class Course {
   final int categoryId;
   final int teacherId;
   final String name;
-  final double price;
+  final int price;
   final String description;
-  final bool accepted;
-  final double rate;
 
   Course({
     required this.categoryId,
@@ -13,7 +11,5 @@ class Course {
     required this.name,
     required this.price,
     required this.description,
-    required this.accepted,
-    required this.rate,
   });
 }

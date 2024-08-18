@@ -1,9 +1,10 @@
-import 'package:e_tcenter/pages/CoursesPage.dart';
+import 'package:e_tcenter/pages/createCourse.dart';
 import 'package:e_tcenter/pages/TrainerDetailsScreen.dart';
 import 'package:e_tcenter/pages/charge_wallet.dart';
 import 'package:e_tcenter/pages/courseDetails.dart';
 import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
 import 'package:e_tcenter/pages/showSubscribedCourses.dart';
+import 'package:e_tcenter/pages/showTeacherCourses.dart';
 import 'package:e_tcenter/pages/showVideo.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/pages/Trainers.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
             const CoursesAndTrainersPage(),
         CoursesCategoriesPage.routeName: (context) =>
             const CoursesCategoriesPage(),
-        CourseForm.routeName: (context) => const CourseForm(),
+        CreateCoursPage.routeName: (context) => const CreateCoursPage(),
         HomePage.routeName: (context) => const HomePage(),
         LoginPage.routeName: (context) => const LoginPage(),
         RegisterPage.routeName: (context) => const RegisterPage(),
@@ -49,6 +50,8 @@ class MyApp extends StatelessWidget {
             const ShowSubscribedCoursesPage(),
         ShowVideoPage.routeName: (context) => const ShowVideoPage(),
         TrainerDetailsPage.routeName: (context) => const TrainerDetailsPage(),
+        ShowTeacherCoursesPage.routeName: (context) =>
+            const ShowTeacherCoursesPage()
       },
     );
   }

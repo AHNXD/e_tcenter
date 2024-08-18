@@ -5,10 +5,16 @@ import 'package:e_tcenter/pages/register.dart';
 
 import 'package:e_tcenter/services/apiService.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   static const routeName = '/login';
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
@@ -62,42 +68,30 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 40.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: TextField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle: const TextStyle(color: Colors.grey),
-                          filled: true,
-                          fillColor: Colors.grey.withOpacity(0.3),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide.none,
-                          ),
+                    Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.all(20),
+                        decoration: const BoxDecoration(
+                          color: Color(0xCBF3F3FC),
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(30)),
                         ),
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: TextField(
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: const TextStyle(color: Colors.grey),
-                          filled: true,
-                          fillColor: Colors.grey.withOpacity(0.3),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                        obscureText: true,
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ),
+                        child: Column(
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: buildInputField(Icons.email,
+                                    "Enter your email", emailController)),
+                            const SizedBox(height: 20.0),
+                            Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: buildInputField(Icons.password,
+                                    "Enter your password", passwordController,
+                                    isPassword: true)),
+                          ],
+                        )),
                     const SizedBox(height: 16.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -108,9 +102,9 @@ class LoginPage extends StatelessWidget {
                             Navigator.pushNamed(
                                 context, RegisterPage.routeName);
                           },
-                          child: const Text(
+                          child: Text(
                             "Create One.",
-                            style: TextStyle(color: Color(0xFFF1AEFF)),
+                            style: TextStyle(color: appColor),
                           ),
                         )
                       ],
@@ -135,8 +129,7 @@ class LoginPage extends StatelessWidget {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color(0xFFF1AEFF), // لون الزر
+                            backgroundColor: appColor, // لون الزر
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 40, vertical: 15),
                             shape: RoundedRectangleBorder(
@@ -145,8 +138,7 @@ class LoginPage extends StatelessWidget {
                           ),
                           child: const Text(
                             'Student',
-                            style: TextStyle(
-                                fontSize: 18, color: Color(0xFFBA63CB)),
+                            style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         ),
                         ElevatedButton(
@@ -165,8 +157,7 @@ class LoginPage extends StatelessWidget {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color(0xFFF1AEFF), // لون الزر
+                            backgroundColor: appColor, // لون الزر
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 40, vertical: 15),
                             shape: RoundedRectangleBorder(
@@ -175,8 +166,7 @@ class LoginPage extends StatelessWidget {
                           ),
                           child: const Text(
                             'Teacher',
-                            style: TextStyle(
-                                fontSize: 18, color: Color(0xFFBA63CB)),
+                            style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         ),
                       ],
@@ -189,7 +179,7 @@ class LoginPage extends StatelessWidget {
                         Navigator.popAndPushNamed(context, HomePage.routeName);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFF1AEFF), // لون الزر
+                        backgroundColor: appColor, // لون الزر
                         padding: const EdgeInsets.symmetric(
                             horizontal: 40, vertical: 15),
                         shape: RoundedRectangleBorder(
@@ -198,8 +188,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       child: const Text(
                         'Guest',
-                        style:
-                            TextStyle(fontSize: 18, color: Color(0xFFBA63CB)),
+                        style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),
                   ],
@@ -208,6 +197,49 @@ class LoginPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildInputField(
+      IconData icon, String hintText, TextEditingController controller,
+      {bool isPassword = false}) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      decoration: BoxDecoration(
+        color: appColor, // لون زهري فاتح
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.white),
+          const SizedBox(width: 10),
+          Expanded(
+            child: TextField(
+              controller: controller,
+              obscureText: isPassword && !_isPasswordVisible,
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: const TextStyle(color: Colors.white),
+                border: InputBorder.none,
+              ),
+              style: const TextStyle(
+                  color: Colors.white, fontSize: 18, fontFamily: 'Arial'),
+            ),
+          ),
+          if (isPassword)
+            IconButton(
+              icon: Icon(
+                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.white),
+              onPressed: () {
+                setState(() {
+                  _isPasswordVisible = !_isPasswordVisible;
+                });
+              },
+            ),
+        ],
       ),
     );
   }

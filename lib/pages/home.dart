@@ -1,6 +1,7 @@
 import 'package:e_tcenter/constatnt.dart';
-import 'package:e_tcenter/pages/CoursesPage.dart';
+import 'package:e_tcenter/pages/createCourse.dart';
 import 'package:e_tcenter/pages/showSubscribedCourses.dart';
+import 'package:e_tcenter/pages/showTeacherCourses.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/pages/Trainers.dart';
 import 'package:e_tcenter/pages/coursesCategories.dart';
@@ -37,14 +38,14 @@ class _HomePageState extends State<HomePage> {
       ];
     } else if (isTeacher) {
       myPages = [
-        const TrainersPage(),
+        const ShowTeacherCoursesPage(),
         const CoursesCategoriesPage(),
         const CoursesAndTrainersPage(),
-        const CourseForm(),
+        const CreateCoursPage(),
         const SettingsPage(),
       ];
       myIcons = [
-        const Icon(Icons.person, size: 30, color: Colors.white),
+        const Icon(Icons.my_library_add, size: 30, color: Colors.white),
         const Icon(Icons.category, size: 30, color: Colors.white),
         const Icon(Icons.home, size: 30, color: Colors.white),
         const Icon(Icons.edit, size: 30, color: Colors.white),
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
         index: 2,
         height: 60.0,
         items: myIcons,
-        color: const Color(0xFFF1AEFF),
+        color: appColor,
         buttonBackgroundColor: Colors.black,
         backgroundColor: Colors.white,
         animationCurve: Curves.easeInOut,

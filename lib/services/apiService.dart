@@ -9,7 +9,7 @@ import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/models/student.dart';
 
 class ApiService {
-  static var ip = "http://192.168.1.11:8000/api";
+  static var ip = "http://192.168.53.33:8000/api";
   static String? token;
 
   static Future registerStudent(String first_name, String last_name,
@@ -92,12 +92,13 @@ class ApiService {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse("$ip/teacher/login"));
 
+    print(Uri.parse("$ip/teacher/login"));
+
     request.body = json.encode({
       'email': email,
       'password': password,
     });
     request.headers.addAll(headers);
-
     http.StreamedResponse response = await request.send();
 
     print(response.statusCode.toString());
@@ -299,6 +300,27 @@ class ApiService {
     }
     return null;
   }
+
+  static Future createCourse(int category_id, int teacher_id, String name,
+      int price, String description) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+    var request = http.Request('POST', Uri.parse("$ip/teacher/add/course"));
+    request.body = json.encode({
+      "category_id": category_id,
+      "teacher_id": teacher_id,
+      "name": name,
+      "price": price,
+      "discription": description
+    });
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+
+    return response.statusCode;
+  }
+
   /*
   static Future getUser({String code = ""}) async {
     final Uri getUser;

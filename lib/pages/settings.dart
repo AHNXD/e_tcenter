@@ -1,3 +1,4 @@
+import 'package:e_tcenter/models/teacher.dart';
 import 'package:e_tcenter/pages/charge_wallet.dart';
 
 import 'package:flutter/material.dart';
@@ -55,24 +56,41 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('المعلومات الشخصية',
-                style: TextStyle(color: Colors.pink)),
+            Text('المعلومات الشخصية',
+                textDirection: TextDirection.ltr,
+                style: TextStyle(
+                    color: appColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24)),
             const SizedBox(height: 20),
-            Text("${studentData.firstName} ${studentData.lastName}",
-                style: const TextStyle(color: Colors.pink, fontSize: 24)),
+            Text(
+                isGuest
+                    ? "Guest"
+                    : isTeacher
+                        ? "${teacherData.firstName} ${teacherData.lastName}"
+                        : "${studentData.firstName} ${studentData.lastName}",
+                style: const TextStyle(fontSize: 24)),
             const SizedBox(height: 10),
-            Text(studentData.email,
-                style: const TextStyle(color: Colors.pink, fontSize: 24)),
+            Text(
+                isGuest
+                    ? "Guest@gmail.com"
+                    : isTeacher
+                        ? teacherData.email
+                        : studentData.email,
+                style: const TextStyle(fontSize: 24)),
             const SizedBox(height: 10),
             Text(WalletData.value.toString(),
-                style: const TextStyle(color: Colors.pink, fontSize: 24)),
+                style: const TextStyle(fontSize: 24)),
             const SizedBox(height: 10),
-            if (!isGuest)
+            const Divider(
+              thickness: 5,
+            ),
+            if (!isGuest && !isTeacher)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('شحن الحساب',
-                      style: TextStyle(color: Colors.pink)),
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   IconButton(
                       onPressed: () {
                         Navigator.pushNamed(context, ChargeWalletPage.routeName)
@@ -81,7 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         });
                       },
                       icon: const Icon(Icons.wallet),
-                      color: Colors.pink),
+                      color: appColor),
                 ],
               ),
             if (!isGuest) const SizedBox(height: 20),
@@ -90,11 +108,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('تعديل الحساب',
-                      style: TextStyle(color: Colors.pink)),
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.edit),
-                      color: Colors.pink),
+                      color: appColor),
                 ],
               ),
             if (!isGuest) const SizedBox(height: 20),
@@ -102,13 +120,16 @@ class _SettingsPageState extends State<SettingsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('تسجيل الخروج',
-                    style: TextStyle(color: Colors.pink)),
+                    style: TextStyle(fontWeight: FontWeight.bold)),
                 IconButton(
                   onPressed: () {
                     resetData();
                     Navigator.popAndPushNamed(context, LoginPage.routeName);
                   },
-                  icon: const Icon(Icons.logout, color: Colors.pink),
+                  icon: Icon(
+                    Icons.logout,
+                    color: appColor,
+                  ),
                 ),
               ],
             ),

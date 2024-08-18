@@ -3,7 +3,8 @@ import 'package:e_tcenter/models/teacher.dart';
 import 'package:e_tcenter/models/wallets.dart';
 import 'package:flutter/material.dart';
 
-Color appColor = const Color(0xFFF1AEFF);
+//Color appColor = const Color(0xFFF1AEFF);
+Color appColor = Colors.deepPurple;
 bool isTeacher = false;
 bool isGuest = true;
 String videoToShow = "";
