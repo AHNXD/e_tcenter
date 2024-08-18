@@ -70,8 +70,36 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.network(
-                                course["videos"][index]["thumbnail_path"]),
+                            Container(
+                              child: Image.network(
+                                course["videos"][index]["thumbnail_path"],
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                (loadingProgress
+                                                        .expectedTotalBytes ??
+                                                    1)
+                                            : null,
+                                      ),
+                                    );
+                                  }
+                                },
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace? stackTrace) {
+                                  return const Icon(Icons.error);
+                                },
+                              ),
+                            ),
                             Column(
                               children: [
                                 Text(course["videos"][index]["title"]),
@@ -82,6 +110,8 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                                 ? const SizedBox()
                                 : IconButton(
                                     onPressed: () {
+                                      videoToShow =
+                                          course["videos"][index]["video_path"];
                                       Navigator.pushNamed(
                                           context, ShowVideoPage.routeName,
                                           arguments: course["videos"][index]

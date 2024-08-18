@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 Color appColor = const Color(0xFFF1AEFF);
 bool isTeacher = false;
 bool isGuest = true;
+String videoToShow = "";
+String VideoTestUrl =
+    "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4";
 Student studentData = const Student(
   id: 0,
   firstName: "Guest",

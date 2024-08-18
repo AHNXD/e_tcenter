@@ -9,7 +9,7 @@ import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/models/student.dart';
 
 class ApiService {
-  static var ip = "http://192.168.1.3:8000/api";
+  static var ip = "http://192.168.120.33:8000/api";
   static String? token;
 
   static Future registerStudent(String first_name, String last_name,
@@ -41,7 +41,7 @@ class ApiService {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-
+    print(response.statusCode.toString());
     if (response.statusCode == 200) {
       var responseBody = await response.stream.bytesToString();
       var js = jsonDecode(responseBody);
