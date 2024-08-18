@@ -1,4 +1,5 @@
 import 'package:e_tcenter/constatnt.dart';
+import 'package:e_tcenter/pages/showVideo.dart';
 import 'package:e_tcenter/services/apiService.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
         if (snapshot.hasData) {
           var course = snapshot.data["course"];
           return Scaffold(
-            floatingActionButton: studentData.firstName == "Guset"
+            floatingActionButton: !isGuest
                 ? FloatingActionButton(
                     onPressed: () async {
                       int state =
@@ -54,6 +55,44 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                   Text("Description: ${course["description"]}"),
                   Text("Price: ${course["price"]}"),
                   Text("Lang: ${course["category"]}"),
+                  const Divider(
+                    thickness: 5,
+                  ),
+                  Text("Play List: ${course["videos"].length}"),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: course["videos"].length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: const EdgeInsets.all(16),
+                        height: 75,
+                        width: double.infinity,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image.network(
+                                course["videos"][index]["thumbnail_path"]),
+                            Column(
+                              children: [
+                                Text(course["videos"][index]["title"]),
+                                Text(course["videos"][index]["discription"])
+                              ],
+                            ),
+                            isGuest
+                                ? const SizedBox()
+                                : IconButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, ShowVideoPage.routeName,
+                                          arguments: course["videos"][index]
+                                              ["video_path"]);
+                                    },
+                                    icon: const Icon(Icons.play_arrow))
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

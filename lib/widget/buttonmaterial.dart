@@ -7,7 +7,7 @@ class ButtonMaterial extends StatelessWidget {
   final String? Function(String?)? validate1;
   final void Function()? suffixPressed;
 
-  ButtonMaterial({
+  const ButtonMaterial({
     Key? key,
     this.color,
     this.text,

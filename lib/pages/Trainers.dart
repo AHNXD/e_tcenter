@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:e_tcenter/pages/courseDetails.dart';
-import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
-import 'package:e_tcenter/pages/showSubscribedCourses.dart';
-import 'package:flutter/material.dart';
-import 'package:e_tcenter/pages/Trainers.dart';
-import 'package:e_tcenter/pages/coursesCategories.dart';
-import 'package:e_tcenter/pages/courses_and_Trainers.dart';
-import 'package:e_tcenter/pages/home.dart';
-import 'package:e_tcenter/pages/settings.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class TrainersPage extends  StatefulWidget {
+class TrainersPage extends StatefulWidget {
   static const routeName = '/trainer';
   const TrainersPage({super.key});
-
-
-
 
   @override
 //  State<TrainersPage> createState() => _TrainersPageState();
@@ -37,8 +25,10 @@ class _TrainersPageState extends State<TrainersPage> {
 
   Future<void> fetchTeachersData() async {
     // جلب بيانات المعلمين من الروابط
-    final namesResponse = await http.get(Uri.parse('http://192.168.227.168:8000/api/teachers/full-names'));
-    final coursesResponse = await http.get(Uri.parse('http://192.168.227.168:8000/api/teachers/id')); //  تأكد من تعديل هذا الرابط
+    final namesResponse = await http
+        .get(Uri.parse('http://localhost:8000/api/teachers/full-names'));
+    final coursesResponse = await http.get(Uri.parse(
+        'http://localhost:8000/api/teachers/id')); //  تأكد من تعديل هذا الرابط
     var headers = {'Content-Type': 'application/json'};
     print('Status Code: ${namesResponse.statusCode}');
     print('Status Code: ${coursesResponse.statusCode}');
@@ -50,14 +40,16 @@ class _TrainersPageState extends State<TrainersPage> {
       for (var i = 0; i < namesData.length; i++) {
         teachers.add({
           'name': namesData[i],
-          'coursesCount': coursesData[i]['coursesCount'], //  تغيير  'coursesCount'  إذا لزم الأمر
-          'subject': coursesData[i]['subject'], //  تغيير  'subject'  إذا لزم الأمر
+          'coursesCount': coursesData[i]
+              ['coursesCount'], //  تغيير  'coursesCount'  إذا لزم الأمر
+          'subject': coursesData[i]
+              ['subject'], //  تغيير  'subject'  إذا لزم الأمر
         });
       }
 
       setState(() {});
     } else {
-   print("not good");
+      print("not good");
     }
   }
 
@@ -68,34 +60,39 @@ class _TrainersPageState extends State<TrainersPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             //  العودة إلى الواجهة السابقة
           },
         ),
         flexibleSpace: ClipRRect(
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+          borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
           child: Container(
             color: Colors.blue, //  يمكنك تغيير اللون
-            padding: EdgeInsets.only(left: 20, bottom: 20),
+            padding: const EdgeInsets.only(left: 20, bottom: 20),
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               'المعلمين',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
           ),
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
+            const Text(
               'نعرض جميع المعلمين المحترفين',
               style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
                 itemCount: teachers.length,
@@ -114,9 +111,9 @@ class _TrainersPageState extends State<TrainersPage> {
                         children: [
                           Text(
                             '${teacher['coursesCount']}', //  عدد الدورات
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Icon(Icons.person, size: 30),
+                          const Icon(Icons.person, size: 30),
                         ],
                       ),
                     ),

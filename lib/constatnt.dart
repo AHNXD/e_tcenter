@@ -1,15 +1,26 @@
 import 'package:e_tcenter/models/student.dart';
+import 'package:e_tcenter/models/teacher.dart';
 import 'package:e_tcenter/models/wallets.dart';
 import 'package:flutter/material.dart';
 
 Color appColor = const Color(0xFFF1AEFF);
+bool isTeacher = false;
+bool isGuest = true;
 Student studentData = const Student(
   id: 0,
   firstName: "Guest",
   lastName: "",
   email: "Guest@gmail.com",
 );
-Wallet studentWalletData = const Wallet(id: 0, student_id: 0, value: 0);
+Teacher teacherData = const Teacher(
+    id: 0,
+    firstName: "Guest",
+    lastName: "",
+    email: "Guest@gmail.com",
+    placeOfWork: "",
+    specialization: "",
+    years: 0);
+Wallet WalletData = const Wallet(id: 0, student_id: 0, value: 0);
 
 void resetData() {
   studentData = const Student(
@@ -18,7 +29,17 @@ void resetData() {
     lastName: "",
     email: "Guest@gmail.com",
   );
-  studentWalletData = const Wallet(id: 0, student_id: 0, value: 0);
+  teacherData = const Teacher(
+      id: 0,
+      firstName: "Guest",
+      lastName: "",
+      email: "Guest@gmail.com",
+      placeOfWork: "",
+      specialization: "",
+      years: 0);
+  WalletData = const Wallet(id: 0, student_id: 0, value: 0);
+  isTeacher = false;
+  isGuest = true;
 }
 
 void message(String error, Color c, BuildContext context) {

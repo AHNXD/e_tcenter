@@ -3,6 +3,7 @@ import 'package:e_tcenter/pages/charge_wallet.dart';
 import 'package:e_tcenter/pages/courseDetails.dart';
 import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
 import 'package:e_tcenter/pages/showSubscribedCourses.dart';
+import 'package:e_tcenter/pages/showVideo.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/pages/Trainers.dart';
 import 'package:e_tcenter/pages/coursesCategories.dart';
@@ -38,13 +39,14 @@ class MyApp extends StatelessWidget {
         LoginPage.routeName: (context) => const LoginPage(),
         RegisterPage.routeName: (context) => const RegisterPage(),
         SettingsPage.routeName: (context) => const SettingsPage(),
-        TrainersPage.routeName: (context) =>  TrainersPage(),
+        TrainersPage.routeName: (context) => const TrainersPage(),
         ChargeWalletPage.routeName: (context) => const ChargeWalletPage(),
         ShowCoursesFromCategoryPage.routeName: (context) =>
             const ShowCoursesFromCategoryPage(),
         CourseDetailsPage.routeName: (context) => const CourseDetailsPage(),
         ShowSubscribedCoursesPage.routeName: (context) =>
-            const ShowSubscribedCoursesPage()
+            const ShowSubscribedCoursesPage(),
+        ShowVideoPage.routeName: (context) => const ShowVideoPage(),
       },
     );
   }

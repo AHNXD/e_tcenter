@@ -47,10 +47,10 @@ class _SettingsPageState extends State<SettingsPage> {
             Text(studentData.email,
                 style: const TextStyle(color: Colors.pink, fontSize: 24)),
             const SizedBox(height: 10),
-            Text(studentWalletData.value.toString(),
+            Text(WalletData.value.toString(),
                 style: const TextStyle(color: Colors.pink, fontSize: 24)),
             const SizedBox(height: 10),
-            if (studentData.firstName == "Guset")
+            if (!isGuest)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -67,8 +67,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Colors.pink),
                 ],
               ),
-            if (studentData.firstName == "Guset") const SizedBox(height: 20),
-            if (studentData.firstName == "Guset")
+            if (!isGuest) const SizedBox(height: 20),
+            if (!isGuest)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -80,8 +80,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Colors.pink),
                 ],
               ),
-            if (studentData.firstName == "Guset") const SizedBox(height: 20),
-            if (studentData.firstName == "Guset")
+            if (!isGuest) const SizedBox(height: 20),
+            if (!isGuest)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -96,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Colors.pink),
                 ],
               ),
-            if (studentData.firstName == "Guset") const SizedBox(height: 20),
+            if (!isGuest) const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

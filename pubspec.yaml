@@ -38,6 +38,8 @@ dependencies:
   http: any
   shared_preferences: any
   curved_navigation_bar: any
+  video_player: any
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

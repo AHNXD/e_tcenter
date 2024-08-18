@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:e_tcenter/pages/CoursesPage.dart';
-import 'package:e_tcenter/pages/Trainers.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 class CoursesAndTrainersPage extends StatelessWidget {
   static const routeName = '/coursesAndTrainers';
   const CoursesAndTrainersPage({super.key});
@@ -34,30 +33,31 @@ class CoursesAndTrainersPage extends StatelessWidget {
               ],
             ),
           ),
-    FutureBuilder<Course>(
-    future: fetchCourse(6), // هنا نستخدم ID الدورة
-    builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-    return Center(child: CircularProgressIndicator());
-    } else if (snapshot.hasError) {
-    return Center(child: Text('خطأ في تحميل البيانات'));
-    } else if (!snapshot.hasData) {
-    return Center(child: Text('لا توجد معلومات عن الدورة'));
-    }
+          FutureBuilder<Course>(
+            future: fetchCourse(6), // هنا نستخدم ID الدورة
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('خطأ في تحميل البيانات'));
+              } else if (!snapshot.hasData) {
+                return Center(child: Text('لا توجد معلومات عن الدورة'));
+              }
 
-    final course = snapshot.data!;
+              final course = snapshot.data!;
 
-    return CourseCard(course: course);
-    },),
+              return CourseCard(course: course);
+            },
+          ),
         ],
       ),
     );
   }
 
-
   Future<Course> fetchCourse(int id) async {
     var headers = {'Content-Type': 'application/json'};
-    final response = await http.get(Uri.parse('http://192.168.227.168:8000/api/courses'));
+    final response =
+        await http.get(Uri.parse('http://192.168.227.168:8000/api/courses'));
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
@@ -125,9 +125,11 @@ class CourseCard extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
             SizedBox(height: 8),
-            Text('المدرس: ${course.teacherName}', style: TextStyle(fontSize: 16)),
+            Text('المدرس: ${course.teacherName}',
+                style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
-            Text('الوصف: ${course.description}', style: TextStyle(fontSize: 14)),
+            Text('الوصف: ${course.description}',
+                style: TextStyle(fontSize: 14)),
             SizedBox(height: 8),
             Text('السعر: \$${course.price}', style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
