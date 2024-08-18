@@ -193,6 +193,23 @@ class ApiService {
     }
     return null;
   }
+
+  static Future getAllCourses() async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse("$ip/courses"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      return js;
+    }
+    return null;
+  }
   /*
   static Future getUser({String code = ""}) async {
     final Uri getUser;
