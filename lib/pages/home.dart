@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List pages = [
-    const TrainersPage(),
+    TrainersPage(),
     const CoursesCategoriesPage(),
     const CoursesAndTrainersPage(),
     const CourseForm(),
