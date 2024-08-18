@@ -178,8 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintStyle: const TextStyle(color: Colors.white),
                 border: InputBorder.none,
               ),
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 18, fontFamily: 'Arial'),
+              style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
           ),
           if (isPassword)

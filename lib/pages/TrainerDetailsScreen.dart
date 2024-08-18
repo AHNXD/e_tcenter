@@ -1,13 +1,12 @@
+import 'package:e_tcenter/constatnt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 class TrainerDetailsPage extends StatelessWidget {
   static const routeName = '/trainerDet';
   const TrainerDetailsPage({Key? key}) : super(key: key);
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,8 @@ class TrainerDetailsPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('خطأ في تحميل البيانات: ${snapshot.error}'));
+            return Center(
+                child: Text('خطأ في تحميل البيانات: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('لا توجد معلومات عن المعلمين'));
           }
@@ -32,7 +32,8 @@ class TrainerDetailsPage extends StatelessWidget {
   }
 
   Future<List<Teacher>> fetchTeachers() async {
-    final response = await http.get(Uri.parse('http://192.168.227.168:8000/api/teacher/full-names'));
+    final response = await http
+        .get(Uri.parse('http://192.168.45.33:8000/api/teacher/full-names'));
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       if (jsonResponse['teachers'] != null) {
@@ -76,142 +77,167 @@ class TeacherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
+          child: Container(
+            color: appColor, // Replace with your desired color
+            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
+            child: const Text(
+              "معلومات المدرب",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
-            child: Column(
-              children: [
-                // الدائرة في الأعلى مع رمز الشخص
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: CircleAvatar(
-                    radius: 50,
-                    child: Icon(Icons.person, size: 50),
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
                   ),
-                ),
-                const SizedBox(height: 8),
-                // اسم المدرب
-                Text(
-                  teacher.fullName ?? 'اسم غير متوفر',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                // مستطيلان أسفل الاسم
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ],
+              ),
+              child: Column(
+                children: [
+                  // الدائرة في الأعلى مع رمز الشخص
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    child: const CircleAvatar(
+                      radius: 50,
+                      child: Icon(Icons.person, size: 50),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  // اسم المدرب
+                  Text(
+                    teacher.fullName ?? 'اسم غير متوفر',
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  // مستطيلان أسفل الاسم
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 8.0),
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.blue[50],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.book),
+                                const SizedBox(width: 8),
+                                Text(teacher.specialization),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 8.0),
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.blue[50],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.location_on),
+                                const SizedBox(width: 8),
+                                Text(
+                                    teacher.previousPlaceOfWork ?? 'غير متوفر'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            // المستطيل النهدي
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.pink,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // عدد الطلاب
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 8.0),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.blue[50],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.book),
-                              const SizedBox(width: 8),
-                              Text(teacher.specialization),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 8.0),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.blue[50],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.location_on),
-                              const SizedBox(width: 8),
-                              Text(teacher.previousPlaceOfWork ?? 'غير متوفر'),
-                            ],
-                          ),
-                        ),
-                      ),
+                      Icon(Icons.group),
+                      const SizedBox(height: 8),
+                      Text('عدد الطلاب: 20'), // هنا يمكنك جلب العدد من الـ API
+                      const Text('طالب'),
                     ],
                   ),
-                ),
-              ],
+                  // عدد الدورات
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.video_library),
+                      const SizedBox(height: 8),
+                      Text('عدد الدورات: 5'), // هنا يمكنك جلب العدد من الـ API
+                      const Text('دورات'),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          // المستطيل النهدي
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.pink,
-              borderRadius: BorderRadius.circular(10),
+            const SizedBox(height: 20),
+            // نص الدورات في الأسفل
+            Align(
+              alignment: Alignment.topRight,
+              child: Text(
+                ':الدورات',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // عدد الطلاب
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.group),
-                    const SizedBox(height: 8),
-                    Text('عدد الطلاب: 20'), // هنا يمكنك جلب العدد من الـ API
-                    const Text('طالب'),
-                  ],
-                ),
-                // عدد الدورات
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.video_library),
-                    const SizedBox(height: 8),
-                    Text('عدد الدورات: 5'), // هنا يمكنك جلب العدد من الـ API
-                    const Text('دورات'),
-                  ],
-                ),
-              ],
+            // هنا يمكنك إضافة قائمة بالكورسات
+            // مثال على قائمة بالكورسات
+            Expanded(
+              child: ListView.builder(
+                itemCount: 5, // عدد الكورسات كمثال
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('Course ${index + 1}'),
+                  );
+                },
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          // نص الدورات في الأسفل
-          Align(
-            alignment: Alignment.topRight,
-            child: Text(
-              'الدورات:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          // هنا يمكنك إضافة قائمة بالكورسات
-          // مثال على قائمة بالكورسات
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5, // عدد الكورسات كمثال
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('Course ${index + 1}'),
-                );
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

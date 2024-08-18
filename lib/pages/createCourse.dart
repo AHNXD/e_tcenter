@@ -47,6 +47,10 @@ class _CourseFormState extends State<CreateCoursPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: submitData,
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -82,7 +86,10 @@ class _CourseFormState extends State<CreateCoursPage> {
                   return DropdownButton<int>(
                     isExpanded: true,
                     value: selectedCatIndex,
-                    icon: const Icon(Icons.category),
+                    icon: Icon(
+                      Icons.category,
+                      color: appColor,
+                    ),
                     items: cat
                         .map((item) => DropdownMenuItem<int>(
                               value: item['id'],
@@ -104,29 +111,41 @@ class _CourseFormState extends State<CreateCoursPage> {
                 }
               },
             ),
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(labelText: 'Course Name'),
-            ),
-            TextField(
-              controller: priceController,
-              decoration: const InputDecoration(labelText: 'Price'),
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-            ),
-            TextField(
-              controller: descriptionController,
-              decoration: const InputDecoration(labelText: 'Description'),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            ElevatedButton(
-              onPressed: submitData,
-              child: const Text('Submit'),
-            ),
+            buildInputField(Icons.abc, "Name", nameController),
+            buildInputField(Icons.abc, "Price", priceController),
+            buildInputField(Icons.abc, "Description", descriptionController),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildInputField(
+      IconData icon, String hintText, TextEditingController controller,
+      {bool isPassword = false}) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      decoration: BoxDecoration(
+        color: appColor, // لون زهري فاتح
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.white),
+          const SizedBox(width: 10),
+          Expanded(
+            child: TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: const TextStyle(color: Colors.white),
+                border: InputBorder.none,
+              ),
+              style: const TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+        ],
       ),
     );
   }

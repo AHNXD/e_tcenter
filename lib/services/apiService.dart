@@ -9,7 +9,7 @@ import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/models/student.dart';
 
 class ApiService {
-  static var ip = "http://192.168.53.33:8000/api";
+  static var ip = "http://192.168.45.33:8000/api";
   static String? token;
 
   static Future registerStudent(String first_name, String last_name,
@@ -41,7 +41,7 @@ class ApiService {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-    print(response.statusCode.toString());
+
     if (response.statusCode == 200) {
       var responseBody = await response.stream.bytesToString();
       var js = jsonDecode(responseBody);
@@ -92,16 +92,12 @@ class ApiService {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse("$ip/teacher/login"));
 
-    print(Uri.parse("$ip/teacher/login"));
-
     request.body = json.encode({
       'email': email,
       'password': password,
     });
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
-
-    print(response.statusCode.toString());
 
     if (response.statusCode == 200) {
       var responseBody = await response.stream.bytesToString();
@@ -316,21 +312,26 @@ class ApiService {
       "discription": description
     });
     request.headers.addAll(headers);
+
     http.StreamedResponse response = await request.send();
 
     return response.statusCode;
   }
 
-  /*
-  static Future getUser({String code = ""}) async {
-    final Uri getUser;
-    if (code == "") {
-      getUser = Uri.parse("${ip}Get");
-    } else {
-      getUser = Uri.parse("${ip}Get?code=$code");
+  static Future getTeachersData() async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse("$ip/teacher/search"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      var data = js["teachers"];
+      return data;
     }
-    final response = await http.get(getUser,
-        headers: {HttpHeaders.authorizationHeader: "Bearer ${token!}"});
-    return json.decode(response.body);
-  }*/
+    return null;
+  }
 }

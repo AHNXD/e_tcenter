@@ -1,4 +1,6 @@
+import 'package:e_tcenter/constatnt.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -14,15 +16,18 @@ class CoursesAndTrainersPage extends StatelessWidget {
         elevation: 0,
         flexibleSpace: ClipRRect(
           borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
           child: Container(
-            color: Colors.blue,
+            color: appColor,
             padding: const EdgeInsets.only(left: 20, bottom: 20),
             alignment: Alignment.bottomCenter,
             child: const Text(
               'الكورسات والمدربين',
               style: TextStyle(
-                  fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
           ),
         ),
@@ -43,9 +48,11 @@ class CoursesAndTrainersPage extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('خطأ في تحميل البيانات: ${snapshot.error}'));
+                  return Center(
+                      child: Text('خطأ في تحميل البيانات: ${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('لا توجد معلومات عن الدورات'));
+                  return const Center(
+                      child: Text('لا توجد معلومات عن الدورات'));
                 }
 
                 final courses = snapshot.data!;
@@ -66,18 +73,25 @@ class CoursesAndTrainersPage extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
                         'المعلمين:',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
                     FutureBuilder<List<Trainer>>(
                       future: fetchTrainers(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
                         } else if (snapshot.hasError) {
-                          return Center(child: Text('خطأ في تحميل البيانات: ${snapshot.error}'));
-                        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                          return const Center(child: Text('لا توجد معلومات عن المعلمين'));
+                          return Center(
+                              child: Text(
+                                  'خطأ في تحميل البيانات: ${snapshot.error}'));
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
+                          return const Center(
+                              child: Text('لا توجد معلومات عن المعلمين'));
                         }
 
                         final trainers = snapshot.data!;
@@ -106,8 +120,9 @@ class CoursesAndTrainersPage extends StatelessWidget {
 
   Future<List<Course>> fetchCourses() async {
     var headers = {'Content-Type': 'application/json'};
-    final response =
-    await http.get(Uri.parse('http://192.168.227.168:8000/api/courses'), headers: headers);
+    final response = await http.get(
+        Uri.parse('http://192.168.45.33:8000/api/courses'),
+        headers: headers);
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
@@ -126,7 +141,9 @@ class CoursesAndTrainersPage extends StatelessWidget {
 
   Future<List<Trainer>> fetchTrainers() async {
     var headers = {'Content-Type': 'application/json'};
-    final response = await http.get(Uri.parse('http://192.168.227.168:8000/api/teacher/search'), headers: headers); // تأكد من صحة الـ API
+    final response = await http.get(
+        Uri.parse('http://192.168.45.33:8000/api/teacher/search'),
+        headers: headers); // تأكد من صحة الـ API
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
@@ -222,7 +239,8 @@ class CourseCard extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 4),
-            Text('السعر: \$${course.price}', style: const TextStyle(fontSize: 14)),
+            Text('السعر: \$${course.price}',
+                style: const TextStyle(fontSize: 14)),
           ],
         ),
       ),
@@ -256,9 +274,10 @@ class TrainerCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            CircleAvatar(
-              radius: 40, // نصف قطر صورة الملف الشخصي
-              backgroundImage: NetworkImage('https://via.placeholder.com/80'), // صورة افتراضية للمعلم
+            Icon(
+              Icons.person,
+              size: 50,
+              color: appColor,
             ),
             const SizedBox(height: 8),
             Text(

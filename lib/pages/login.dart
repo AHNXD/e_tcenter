@@ -224,8 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                 hintStyle: const TextStyle(color: Colors.white),
                 border: InputBorder.none,
               ),
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 18, fontFamily: 'Arial'),
+              style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
           ),
           if (isPassword)
@@ -234,9 +233,8 @@ class _LoginPageState extends State<LoginPage> {
                   _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                   color: Colors.white),
               onPressed: () {
-                setState(() {
-                  _isPasswordVisible = !_isPasswordVisible;
-                });
+                _isPasswordVisible = !_isPasswordVisible;
+                setState(() {});
               },
             ),
         ],
