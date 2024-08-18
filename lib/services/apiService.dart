@@ -100,6 +100,8 @@ class ApiService {
 
     http.StreamedResponse response = await request.send();
 
+    print(response.statusCode.toString());
+
     if (response.statusCode == 200) {
       var responseBody = await response.stream.bytesToString();
       var js = jsonDecode(responseBody);

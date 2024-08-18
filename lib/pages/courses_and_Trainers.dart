@@ -20,11 +20,11 @@ class CoursesAndTrainersPage extends StatelessWidget {
             bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
         child: Container(
           color: appColor, // Replace with your desired color
-          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
-          alignment: Alignment.bottomCenter,
-          child: Text(
+          padding: const EdgeInsets.only(left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
+          child: const Text(
             'الكورسات والمدربين',
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
@@ -53,11 +53,11 @@ class CoursesAndTrainersPage extends StatelessWidget {
             future: fetchCourse(6), // هنا نستخدم ID الدورة
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(child: Text('خطأ في تحميل البيانات'));
+                return const Center(child: Text('خطأ في تحميل البيانات'));
               } else if (!snapshot.hasData) {
-                return Center(child: Text('لا توجد معلومات عن الدورة'));
+                return const Center(child: Text('لا توجد معلومات عن الدورة'));
               }
 
               final course = snapshot.data!;
@@ -118,7 +118,7 @@ class CourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -127,7 +127,7 @@ class CourseCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -138,18 +138,18 @@ class CourseCard extends StatelessWidget {
           children: [
             Text(
               course.courseName,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text('المدرس: ${course.teacherName}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 8),
+                style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 8),
             Text('الوصف: ${course.description}',
-                style: TextStyle(fontSize: 14)),
-            SizedBox(height: 8),
-            Text('السعر: \$${course.price}', style: TextStyle(fontSize: 16)),
-            SizedBox(height: 8),
-            Text('الفئة: ${course.category}', style: TextStyle(fontSize: 14)),
+                style: const TextStyle(fontSize: 14)),
+            const SizedBox(height: 8),
+            Text('السعر: \$${course.price}', style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 8),
+            Text('الفئة: ${course.category}', style: const TextStyle(fontSize: 14)),
           ],
         ),
       ),

@@ -27,8 +27,8 @@ class _ShowCoursesFromCategoryPageState
             bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
         child: Container(
           color: appColor, // Replace with your desired color
-          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
-          alignment: Alignment.bottomCenter,
+          padding: const EdgeInsets.only(left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
           child: Text(
             category["name"],
             style: const TextStyle(

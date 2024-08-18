@@ -1,7 +1,6 @@
 import 'package:e_tcenter/constatnt.dart';
 
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 import 'package:appinio_video_player/appinio_video_player.dart';
 
 class ShowVideoPage extends StatefulWidget {
@@ -49,11 +48,11 @@ class _ShowVideoPageState extends State<ShowVideoPage> {
               bottomRight: Radius.circular(30)),
           child: Container(
             color: appColor, // Replace with your desired color
-            padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+            padding: const EdgeInsets.only(left: 20, bottom: 20),
             alignment: Alignment.bottomCenter,
             child: const Text(
               "الفيديو",
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),

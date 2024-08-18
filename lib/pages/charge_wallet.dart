@@ -28,7 +28,7 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
               bottomRight: Radius.circular(30)),
           child: Container(
             color: appColor, // Replace with your desired color
-            padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+            padding: const EdgeInsets.only(left: 20, bottom: 20),
             alignment: Alignment.bottomCenter,
             child: const Text(
               "شحن المحفظة",
@@ -43,7 +43,6 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
       body: Center(
         child: Column(
           children: [
-            Text(studentData.id.toString()),
             TextFormField(
               controller: _controller,
             ),

@@ -1,3 +1,4 @@
+import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/TrainerDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -58,21 +59,15 @@ class _TrainersPageState extends State<TrainersPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            //  العودة إلى الواجهة السابقة
-          },
-        ),
         flexibleSpace: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30)),
           child: Container(
-            color: Colors.blue, //  يمكنك تغيير اللون
-            padding: EdgeInsets.only(left: 20, bottom: 20),
-            alignment: Alignment.center,
-            child: Text(
+            color: appColor, //  يمكنك تغيير اللون
+            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
+            child: const Text(
               'المعلمين',
               style: TextStyle(
                   fontSize: 24,
@@ -83,15 +78,10 @@ class _TrainersPageState extends State<TrainersPage> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              'نعرض جميع المعلمين المحترفين',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-            const SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
                 itemCount: teachers.length,

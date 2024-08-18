@@ -22,7 +22,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
         if (snapshot.hasData) {
           var course = snapshot.data["course"];
           return Scaffold(
-            floatingActionButton: !isGuest
+            floatingActionButton: !isGuest && !isTeacher
                 ? FloatingActionButton(
                     onPressed: () async {
                       int state =
@@ -54,7 +54,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                     bottomRight: Radius.circular(30)),
                 child: Container(
                   color: appColor, // Replace with your desired color
-                  padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+                  padding: const EdgeInsets.only(left: 20, bottom: 20),
                   alignment: Alignment.bottomCenter,
                   child: Text(
                     course["course_name"],
@@ -88,35 +88,33 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              child: Image.network(
-                                course["videos"][index]["thumbnail_path"],
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  } else {
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                (loadingProgress
-                                                        .expectedTotalBytes ??
-                                                    1)
-                                            : null,
-                                      ),
-                                    );
-                                  }
-                                },
-                                errorBuilder: (BuildContext context,
-                                    Object exception, StackTrace? stackTrace) {
-                                  return const Icon(Icons.error);
-                                },
-                              ),
+                            Image.network(
+                              course["videos"][index]["thumbnail_path"],
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  (loadingProgress
+                                                          .expectedTotalBytes ??
+                                                      1)
+                                              : null,
+                                    ),
+                                  );
+                                }
+                              },
+                              errorBuilder: (BuildContext context,
+                                  Object exception, StackTrace? stackTrace) {
+                                return const Icon(Icons.error);
+                              },
                             ),
                             Column(
                               children: [

@@ -1,5 +1,4 @@
 import 'package:e_tcenter/pages/charge_wallet.dart';
-import 'package:e_tcenter/pages/showSubscribedCourses.dart';
 
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/constatnt.dart';
@@ -30,24 +29,27 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      flexibleSpace: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
-        child: Container(
-          color: appColor, // Replace with your desired color
-          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            'الأعدادات',
-            style: const TextStyle(
-                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
+          child: Container(
+            color: appColor, // Replace with your desired color
+            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
+            child: const Text(
+              "الإعدادات",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
           ),
         ),
       ),
-    ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -92,22 +94,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.edit),
-                      color: Colors.pink),
-                ],
-              ),
-            if (!isGuest) const SizedBox(height: 20),
-            if (!isGuest)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('عرض الكورسات المشتركه',
-                      style: TextStyle(color: Colors.pink)),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                            context, ShowSubscribedCoursesPage.routeName);
-                      },
-                      icon: const Icon(Icons.arrow_forward),
                       color: Colors.pink),
                 ],
               ),

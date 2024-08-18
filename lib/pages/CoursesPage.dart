@@ -52,11 +52,11 @@ class _CourseFormState extends State<CourseForm> {
             bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
         child: Container(
           color: appColor, // Replace with your desired color
-          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
-          alignment: Alignment.bottomCenter,
-          child: Text(
+         padding: const EdgeInsets.only(left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
+          child: const Text(
             'انشاء كورس',
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
