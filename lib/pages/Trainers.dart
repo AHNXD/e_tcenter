@@ -1,24 +1,12 @@
 import 'package:e_tcenter/pages/TrainerDetailsScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:e_tcenter/pages/courseDetails.dart';
-import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
-import 'package:e_tcenter/pages/showSubscribedCourses.dart';
-import 'package:flutter/material.dart';
-import 'package:e_tcenter/pages/Trainers.dart';
-import 'package:e_tcenter/pages/coursesCategories.dart';
-import 'package:e_tcenter/pages/courses_and_Trainers.dart';
-import 'package:e_tcenter/pages/home.dart';
-import 'package:e_tcenter/pages/settings.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class TrainersPage extends  StatefulWidget {
+class TrainersPage extends StatefulWidget {
   static const routeName = '/trainer';
   const TrainersPage({super.key});
-
-
-
 
   @override
 //  State<TrainersPage> createState() => _TrainersPageState();
@@ -38,30 +26,29 @@ class _TrainersPageState extends State<TrainersPage> {
 
   Future<void> fetchTeachersData() async {
     // جلب بيانات المعلمين من الروابط
-    final namesResponse = await http.get(Uri.parse('http://0.0.0.0:8000/api/teacher/search'));
+    final namesResponse =
+        await http.get(Uri.parse('http://192.168.1.3:8000/api/teacher/search'));
     //  تأكد من تعديل هذا الرابط
     var headers = {'Content-Type': 'application/json'};
     print('Status Code: ${namesResponse.statusCode}');
 
-    if (namesResponse.statusCode == 200 ) {
+    if (namesResponse.statusCode == 200) {
       final namesData = json.decode(namesResponse.body);
-var data=namesData["teachers"];
+      var data = namesData["teachers"];
       print(data);
       //  دمج البيانات  (قد تحتاج إلى تعديل هذه الخطوة بناءً على بنية البيانات من  API)
       for (var i = 0; i < data.length; i++) {
         teachers.add({
           'full_name': data[i]["full_name"],
-         // 'course_names': coursesData[i]['coursesCount'], //  تغيير  'coursesCount'  إذا لزم الأمر
-        'specialization': data[i]['specialization'], //  تغيير  'subject'  إذا لزم الأمر
-
-        }
-
-    );
-           }
+          // 'course_names': coursesData[i]['coursesCount'], //  تغيير  'coursesCount'  إذا لزم الأمر
+          'specialization': data[i]
+              ['specialization'], //  تغيير  'subject'  إذا لزم الأمر
+        });
+      }
 
       setState(() {});
     } else {
- //  print("not good");
+      //  print("not good");
     }
   }
 
@@ -78,14 +65,19 @@ var data=namesData["teachers"];
           },
         ),
         flexibleSpace: ClipRRect(
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
           child: Container(
             color: Colors.blue, //  يمكنك تغيير اللون
             padding: EdgeInsets.only(left: 20, bottom: 20),
             alignment: Alignment.center,
             child: Text(
               'المعلمين',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
           ),
         ),
@@ -114,8 +106,7 @@ var data=namesData["teachers"];
                         color: Colors.grey,
                       ),
                       child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // Text(
                           //   '${teacher['coursesCount']}', //  عدد الدورات
@@ -128,9 +119,12 @@ var data=namesData["teachers"];
                     title: Text(teacher['full_name'] ?? ""),
                     subtitle: Text(teacher['specialization']), //  مادة التدريس
                     onTap: () {
-                       Navigator.pushNamed(context,TrainerDetailsPage.routeName );//  تأكد من  أن  teacher['id']  موجود  في  البيانات
-
-                    },  );
+                      Navigator.pushNamed(
+                          context,
+                          TrainerDetailsPage
+                              .routeName); //  تأكد من  أن  teacher['id']  موجود  في  البيانات
+                    },
+                  );
                 },
               ),
             ),
