@@ -1,3 +1,5 @@
+import 'package:e_tcenter/constatnt.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -11,9 +13,23 @@ class CoursesAndTrainersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text('الكورسات والمدربين'),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      flexibleSpace: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+        child: Container(
+          color: appColor, // Replace with your desired color
+          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            'الكورسات والمدربين',
+            style: const TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
       ),
+    ),
       body: Column(
         children: [
           const Padding(

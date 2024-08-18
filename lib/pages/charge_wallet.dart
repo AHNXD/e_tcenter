@@ -1,5 +1,6 @@
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/services/apiService.dart';
+
 import 'package:flutter/material.dart';
 
 class ChargeWalletPage extends StatefulWidget {
@@ -19,8 +20,25 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("شحن المحفظة"),
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
+          child: Container(
+            color: appColor, // Replace with your desired color
+            padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
+            child: const Text(
+              "شحن المحفظة",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+        ),
       ),
       body: Center(
         child: Column(

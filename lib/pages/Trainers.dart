@@ -1,3 +1,4 @@
+import 'package:e_tcenter/constatnt.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -26,9 +27,9 @@ class _TrainersPageState extends State<TrainersPage> {
   Future<void> fetchTeachersData() async {
     // جلب بيانات المعلمين من الروابط
     final namesResponse = await http
-        .get(Uri.parse('http://localhost:8000/api/teachers/full-names'));
+        .get(Uri.parse('http://192.168.1.3:8000/api/teachers/full-names'));
     final coursesResponse = await http.get(Uri.parse(
-        'http://localhost:8000/api/teachers/id')); //  تأكد من تعديل هذا الرابط
+        'http://192.168.1.3:8000/api/teachers/id')); //  تأكد من تعديل هذا الرابط
     var headers = {'Content-Type': 'application/json'};
     print('Status Code: ${namesResponse.statusCode}');
     print('Status Code: ${coursesResponse.statusCode}');
@@ -59,18 +60,12 @@ class _TrainersPageState extends State<TrainersPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            //  العودة إلى الواجهة السابقة
-          },
-        ),
         flexibleSpace: ClipRRect(
           borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30)),
           child: Container(
-            color: Colors.blue, //  يمكنك تغيير اللون
+            color: appColor, //  يمكنك تغيير اللون
             padding: const EdgeInsets.only(left: 20, bottom: 20),
             alignment: Alignment.center,
             child: const Text(

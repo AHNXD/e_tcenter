@@ -1,3 +1,5 @@
+import 'package:e_tcenter/constatnt.dart';
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:appinio_video_player/appinio_video_player.dart';
@@ -39,8 +41,25 @@ class _ShowVideoPageState extends State<ShowVideoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("The Video"),
-        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
+          child: Container(
+            color: appColor, // Replace with your desired color
+            padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+            alignment: Alignment.bottomCenter,
+            child: const Text(
+              "الفيديو",
+              style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+        ),
       ),
       body: SafeArea(
         child: Center(
