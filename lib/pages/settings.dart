@@ -1,5 +1,6 @@
 import 'package:e_tcenter/pages/charge_wallet.dart';
 import 'package:e_tcenter/pages/showSubscribedCourses.dart';
+
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/login.dart';
@@ -29,10 +30,24 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('الأعدادات'),
+      appBar:  AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      flexibleSpace: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+        child: Container(
+          color: appColor, // Replace with your desired color
+          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            'الأعدادات',
+            style: const TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
       ),
+    ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -47,10 +62,10 @@ class _SettingsPageState extends State<SettingsPage> {
             Text(studentData.email,
                 style: const TextStyle(color: Colors.pink, fontSize: 24)),
             const SizedBox(height: 10),
-            Text(studentWalletData.value.toString(),
+            Text(WalletData.value.toString(),
                 style: const TextStyle(color: Colors.pink, fontSize: 24)),
             const SizedBox(height: 10),
-            if (studentData.firstName == "Guset")
+            if (!isGuest)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -67,8 +82,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Colors.pink),
                 ],
               ),
-            if (studentData.firstName == "Guset") const SizedBox(height: 20),
-            if (studentData.firstName == "Guset")
+            if (!isGuest) const SizedBox(height: 20),
+            if (!isGuest)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -80,8 +95,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Colors.pink),
                 ],
               ),
-            if (studentData.firstName == "Guset") const SizedBox(height: 20),
-            if (studentData.firstName == "Guset")
+            if (!isGuest) const SizedBox(height: 20),
+            if (!isGuest)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -96,7 +111,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Colors.pink),
                 ],
               ),
-            if (studentData.firstName == "Guset") const SizedBox(height: 20),
+            if (!isGuest) const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

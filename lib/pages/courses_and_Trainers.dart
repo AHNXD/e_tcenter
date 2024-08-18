@@ -1,9 +1,10 @@
+import 'package:e_tcenter/constatnt.dart';
+
 import 'package:flutter/material.dart';
-import 'package:e_tcenter/pages/CoursesPage.dart';
-import 'package:e_tcenter/pages/Trainers.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 class CoursesAndTrainersPage extends StatelessWidget {
   static const routeName = '/coursesAndTrainers';
   const CoursesAndTrainersPage({super.key});
@@ -12,9 +13,23 @@ class CoursesAndTrainersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text('الكورسات والمدربين'),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      flexibleSpace: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+        child: Container(
+          color: appColor, // Replace with your desired color
+          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            'الكورسات والمدربين',
+            style: const TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
       ),
+    ),
       body: Column(
         children: [
           const Padding(
@@ -34,31 +49,32 @@ class CoursesAndTrainersPage extends StatelessWidget {
               ],
             ),
           ),
-    FutureBuilder<Course>(
-    future: fetchCourse(6), // هنا نستخدم ID الدورة
-    builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-    return Center(child: CircularProgressIndicator());
-    } else if (snapshot.hasError) {
-    return Center(child: Text('خطأ في تحميل البيانات'));
-    } else if (!snapshot.hasData) {
-    return Center(child: Text('لا توجد معلومات عن الدورة'));
-    }
+          FutureBuilder<Course>(
+            future: fetchCourse(6), // هنا نستخدم ID الدورة
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('خطأ في تحميل البيانات'));
+              } else if (!snapshot.hasData) {
+                return Center(child: Text('لا توجد معلومات عن الدورة'));
+              }
 
-    final course = snapshot.data!;
+              final course = snapshot.data!;
 
-    return CourseCard(course: course);
-    },),
+              return CourseCard(course: course);
+            },
+          ),
         ],
       ),
     );
   }
 
-
   Future<Course> fetchCourse(int id) async {
+    var headers = {'Content-Type': 'application/json'};
+    final response =
+        await http.get(Uri.parse('http://192.168.227.168:8000/api/courses'));
 
-    final response = await http.get(Uri.parse('http://0.0.0.0:8000/api/courses'));
-   // print('Status Code: ${response.statusCode}');
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       return Course.fromJson(jsonResponse['course']);
@@ -69,14 +85,14 @@ class CoursesAndTrainersPage extends StatelessWidget {
 }
 
 class Course {
-  // final String teacherName;
+  final String teacherName;
   final String courseName;
   final String description;
   final double price;
   final String category;
 
   Course({
-    // required this.teacherName,
+    required this.teacherName,
     required this.courseName,
     required this.description,
     required this.price,
@@ -85,9 +101,9 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
-      // teacherName: json['teacher_name'],
-      courseName: json['name'],
-      description: json['discription'],
+      teacherName: json['teacher_name'],
+      courseName: json['course_name'],
+      description: json['description'],
       price: json['price'].toDouble(),
       category: json['category'],
     );
@@ -125,9 +141,11 @@ class CourseCard extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
             SizedBox(height: 8),
-            // Text('المدرس: ${course.teacherName}', style: TextStyle(fontSize: 16)),
-            // SizedBox(height: 8),
-            Text('الوصف: ${course.description}', style: TextStyle(fontSize: 14)),
+            Text('المدرس: ${course.teacherName}',
+                style: TextStyle(fontSize: 16)),
+            SizedBox(height: 8),
+            Text('الوصف: ${course.description}',
+                style: TextStyle(fontSize: 14)),
             SizedBox(height: 8),
             Text('السعر: \$${course.price}', style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),

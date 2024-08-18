@@ -1,5 +1,7 @@
 import 'package:e_tcenter/constatnt.dart';
+import 'package:e_tcenter/pages/showVideo.dart';
 import 'package:e_tcenter/services/apiService.dart';
+
 import 'package:flutter/material.dart';
 
 class CourseDetailsPage extends StatefulWidget {
@@ -20,7 +22,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
         if (snapshot.hasData) {
           var course = snapshot.data["course"];
           return Scaffold(
-            floatingActionButton: studentData.firstName == "Guset"
+            floatingActionButton: !isGuest
                 ? FloatingActionButton(
                     onPressed: () async {
                       int state =
@@ -44,8 +46,25 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                   )
                 : null,
             appBar: AppBar(
-              title: Text(course["course_name"]),
-              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              flexibleSpace: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30)),
+                child: Container(
+                  color: appColor, // Replace with your desired color
+                  padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    course["course_name"],
+                    style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
             ),
             body: Center(
               child: Column(
@@ -54,6 +73,74 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                   Text("Description: ${course["description"]}"),
                   Text("Price: ${course["price"]}"),
                   Text("Lang: ${course["category"]}"),
+                  const Divider(
+                    thickness: 5,
+                  ),
+                  Text("Play List: ${course["videos"].length}"),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: course["videos"].length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: const EdgeInsets.all(16),
+                        height: 75,
+                        width: double.infinity,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Image.network(
+                                course["videos"][index]["thumbnail_path"],
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                (loadingProgress
+                                                        .expectedTotalBytes ??
+                                                    1)
+                                            : null,
+                                      ),
+                                    );
+                                  }
+                                },
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace? stackTrace) {
+                                  return const Icon(Icons.error);
+                                },
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text(course["videos"][index]["title"]),
+                                Text(course["videos"][index]["discription"])
+                              ],
+                            ),
+                            isGuest
+                                ? const SizedBox()
+                                : IconButton(
+                                    onPressed: () {
+                                      videoToShow =
+                                          course["videos"][index]["video_path"];
+                                      Navigator.pushNamed(
+                                          context, ShowVideoPage.routeName,
+                                          arguments: course["videos"][index]
+                                              ["video_path"]);
+                                    },
+                                    icon: const Icon(Icons.play_arrow))
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

@@ -144,14 +144,14 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            'Login as Student',
+                            'Student',
                             style: TextStyle(
                                 fontSize: 18, color: Color(0xFFBA63CB)),
                           ),
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            var status = await ApiService.loginStudent(
+                            var status = await ApiService.loginTeacher(
                                 emailController.text, passwordController.text);
                             message(
                                 status == 200
@@ -174,7 +174,7 @@ class LoginPage extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            'Login as Teacher',
+                            'Teacher',
                             style: TextStyle(
                                 fontSize: 18, color: Color(0xFFBA63CB)),
                           ),
@@ -186,7 +186,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        Navigator.pushNamed(context, HomePage.routeName);
+                        Navigator.popAndPushNamed(context, HomePage.routeName);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFF1AEFF), // لون الزر

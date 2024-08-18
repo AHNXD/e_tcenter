@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:e_tcenter/models/teacher.dart';
 import 'package:e_tcenter/models/wallets.dart';
 import 'package:http/http.dart' as http;
 import 'package:e_tcenter/constatnt.dart';
@@ -40,7 +41,7 @@ class ApiService {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-
+    print(response.statusCode.toString());
     if (response.statusCode == 200) {
       var responseBody = await response.stream.bytesToString();
       var js = jsonDecode(responseBody);
@@ -52,10 +53,11 @@ class ApiService {
           firstName: std['first_name'],
           lastName: std['last_name'],
           email: std['email']);
-      studentWalletData = Wallet(
+      WalletData = Wallet(
           id: wal['id'], student_id: wal["student_id"], value: wal["value"]);
     }
-
+    isTeacher = false;
+    isGuest = false;
     return response.statusCode;
   }
 
@@ -102,17 +104,22 @@ class ApiService {
       var responseBody = await response.stream.bytesToString();
       var js = jsonDecode(responseBody);
       token = js['token'];
-      var std = js['student'];
-      var wal = js['StudentWallet'];
-      studentData = Student(
-          id: std['id'],
-          firstName: std['first_name'],
-          lastName: std['last_name'],
-          email: std['email']);
-      studentWalletData = Wallet(
-          id: wal['id'], student_id: wal["student_id"], value: wal["value"]);
-    }
+      var teach = js['teacher'];
+      var wal = js['wallet'];
+      teacherData = Teacher(
+          id: teach['id'],
+          firstName: teach['first_name'],
+          lastName: teach['last_name'],
+          email: teach['email'],
+          placeOfWork: teach["previous_place_of_work"],
+          specialization: teach["specialization"],
+          years: teach["years_of_experience"]);
 
+      WalletData = Wallet(
+          id: wal['id'], student_id: wal["teacher_id"], value: wal["value"]);
+    }
+    isTeacher = true;
+    isGuest = false;
     return response.statusCode;
   }
 
@@ -131,9 +138,32 @@ class ApiService {
       var js = jsonDecode(responseBody);
       var newWallet = js['wallet_value'];
 
-      studentWalletData = Wallet(
-          id: studentWalletData.id,
-          student_id: studentWalletData.student_id,
+      WalletData = Wallet(
+          id: WalletData.id,
+          student_id: WalletData.student_id,
+          value: newWallet);
+    }
+    return response.statusCode;
+  }
+
+  static Future getTeacherWallet(int id) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'GET', Uri.parse("$ip/teacher/${teacherData.id}/wallet-value"));
+
+    request.body = json.encode({});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      var js = jsonDecode(responseBody);
+      var newWallet = js['wallet_value'];
+
+      WalletData = Wallet(
+          id: WalletData.id,
+          student_id: WalletData.student_id,
           value: newWallet);
     }
     return response.statusCode;

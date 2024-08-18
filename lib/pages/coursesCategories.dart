@@ -1,6 +1,7 @@
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
 import 'package:e_tcenter/services/apiService.dart';
+
 import 'package:flutter/material.dart';
 
 class CoursesCategoriesPage extends StatelessWidget {
@@ -11,9 +12,23 @@ class CoursesCategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text('أنواع الكورسات'),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      flexibleSpace: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+        child: Container(
+          color: appColor, // Replace with your desired color
+          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            'أنواع الكورسات',
+            style: const TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
       ),
+    ),
       body: Center(
         child: FutureBuilder(
           future: ApiService.getAllCategories(),

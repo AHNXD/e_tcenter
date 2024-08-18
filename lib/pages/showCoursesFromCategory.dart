@@ -1,6 +1,7 @@
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/courseDetails.dart';
 import 'package:e_tcenter/services/apiService.dart';
+
 import 'package:flutter/material.dart';
 
 class ShowCoursesFromCategoryPage extends StatefulWidget {
@@ -19,9 +20,23 @@ class _ShowCoursesFromCategoryPageState
     Map category = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: AppBar(
-        title: Text(category["name"]),
-        centerTitle: true,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      flexibleSpace: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+        child: Container(
+          color: appColor, // Replace with your desired color
+          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            category["name"],
+            style: const TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
       ),
+    ),
       body: FutureBuilder(
         future: ApiService.getCoursesByCategory(category["id"]),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

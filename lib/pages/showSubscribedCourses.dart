@@ -1,6 +1,7 @@
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/courseDetails.dart';
 import 'package:e_tcenter/services/apiService.dart';
+
 import 'package:flutter/material.dart';
 
 class ShowSubscribedCoursesPage extends StatefulWidget {
@@ -16,10 +17,24 @@ class _ShowSubscribedCoursesPageState extends State<ShowSubscribedCoursesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("الكورسات المشترك بها"),
-        centerTitle: true,
+      appBar:AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      flexibleSpace: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
+        child: Container(
+          color: appColor, // Replace with your desired color
+          padding: const EdgeInsets.only(top: 50, left: 20, bottom: 20),
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            "الكورسات المشترك بها",
+            style: const TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
       ),
+    ),
       body: FutureBuilder(
         future: ApiService.getSubscribedCourses(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
