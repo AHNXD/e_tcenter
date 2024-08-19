@@ -15,10 +15,6 @@ class _ShowTeacherCoursesPageState extends State<ShowTeacherCoursesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

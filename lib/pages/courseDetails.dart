@@ -52,14 +52,17 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                                 .add), // if the couse here make it Icon.check
                           )
                         : null
-                    : FloatingActionButton(
-                        onPressed: () async {
-                          Navigator.pushNamed(context, AddVideoPage.routeName,
-                              arguments: id);
-                        },
-                        child: const Icon(
-                            Icons.add), // if the couse here make it Icon.check
-                      )
+                    : teacherData.id == course["teacherId"]
+                        ? FloatingActionButton(
+                            onPressed: () async {
+                              Navigator.pushNamed(
+                                  context, AddVideoPage.routeName,
+                                  arguments: id);
+                            },
+                            child: const Icon(Icons
+                                .add), // if the couse here make it Icon.check
+                          )
+                        : null
                 : null,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
@@ -85,10 +88,12 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
             body: Center(
               child: Column(
                 children: [
-                  Text(
-                    "Teacher Name: ${course["teacher_name"]}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 25),
+                  Container(
+                    child: Text(
+                      "Teacher Name: ${course["teacher_name"]}",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 25),
+                    ),
                   ),
                   Text("Description: ${course["description"]}",
                       style: const TextStyle(

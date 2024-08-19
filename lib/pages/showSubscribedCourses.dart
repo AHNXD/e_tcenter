@@ -17,24 +17,27 @@ class _ShowSubscribedCoursesPageState extends State<ShowSubscribedCoursesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      flexibleSpace: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
-        child: Container(
-          color: appColor, // Replace with your desired color
-          padding: const EdgeInsets.only(bottom: 15),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
+          child: Container(
+            color: appColor, // Replace with your desired color
+            padding: const EdgeInsets.only(bottom: 15),
             alignment: Alignment.bottomCenter,
-          child: const Text(
-            "الكورسات المشترك بها",
-            style: TextStyle(
-                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+            child: const Text(
+              "الكورسات المشترك بها",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
           ),
         ),
       ),
-    ),
       body: FutureBuilder(
         future: ApiService.getSubscribedCourses(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -45,11 +48,11 @@ class _ShowSubscribedCoursesPageState extends State<ShowSubscribedCoursesPage> {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, CourseDetailsPage.routeName,
-                        arguments: {
-                          "id": courses[index]["id"],
-                          "teacher_id": courses[index]["teacher_id"]
-                        });
+                    Navigator.pushNamed(
+                      context,
+                      CourseDetailsPage.routeName,
+                      arguments: courses[index]["id"],
+                    );
                   },
                   child: Container(
                     width: double.infinity,

@@ -12,7 +12,7 @@ class ChargeWalletPage extends StatefulWidget {
 }
 
 class _ChargeWalletPageState extends State<ChargeWalletPage> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController(text: "500");
 
   String state = "Enter The Amount of Charge.";
 

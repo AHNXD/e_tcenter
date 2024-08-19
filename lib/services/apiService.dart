@@ -10,7 +10,7 @@ import 'package:e_tcenter/models/student.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ApiService {
-  static var ip = "http://192.168.45.33:8000/api";
+  static var ip = "http://192.168.217.33:8000/api";
   static String? token;
 
   static Future registerStudent(String first_name, String last_name,
@@ -303,6 +303,7 @@ class ApiService {
     if (response.statusCode == 200) {
       var responseBody = await response.stream.bytesToString();
       var js = jsonDecode(responseBody);
+      
       return js;
     }
     return null;
@@ -391,10 +392,14 @@ class ApiService {
 
   static Future addVideo(int id, String title, String description,
       XFile videoFile, XFile thumbnailFile) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     final uri = Uri.parse(
         "$ip/teacher/add/video"); // Replace `$ip` with your actual IP address
     final request = http.MultipartRequest('POST', uri);
-
+    request.headers.addAll(headers);
     request.fields['course_id'] = id.toString(); // Convert id to String
     request.fields['title'] = title;
     request.fields['discription'] = description;
@@ -422,10 +427,10 @@ class ApiService {
         await thumbnailFile.length(), // Get file length asynchronously
         filename: thumbnailFile.name,
       ));
-    
+
       final response = await request.send();
       final responseBody = await response.stream.bytesToString();
-
+      print(response.statusCode);
       return response.statusCode;
     } catch (error) {
       print('Error uploading video and thumbnail: $error');

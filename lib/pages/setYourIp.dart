@@ -50,7 +50,7 @@ class SetYourIpPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("htttp://192.168.1.1:8000/api"),
+            Text("EX: htttp://192.168.1.1:8000/api"),
             buildInputField(Icons.numbers, "Enter the IP", _controller)
           ],
         ),

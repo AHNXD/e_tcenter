@@ -56,6 +56,8 @@ class _AddVideoPageState extends State<AddVideoPage> {
                 descriptionController.text, video!, image!);
             if (state == 200) {
               message("Succes!", Colors.green, context);
+            } else if (state == 400) {
+              message("The course is pending!", Colors.red, context);
             } else {
               message("There was an error.", Colors.red, context);
             }
@@ -93,7 +95,8 @@ class _AddVideoPageState extends State<AddVideoPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(onPressed: pickVideo, child: const Text("Set Video")),
+                ElevatedButton(
+                    onPressed: pickVideo, child: const Text("Set Video")),
                 ElevatedButton(
                     onPressed: pickImage, child: const Text("Set Thumbnail"))
               ],
