@@ -25,7 +25,7 @@ class _TrainerDetailsPageState extends State<TrainerDetailsPage> {
               bottomRight: Radius.circular(30)),
           child: Container(
             color: appColor, // Replace with your desired color
-            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            padding: const EdgeInsets.only(bottom: 15),
             alignment: Alignment.bottomCenter,
             child: const Text(
               "معلومات المدرب",
@@ -72,7 +72,7 @@ class _TrainerDetailsPageState extends State<TrainerDetailsPage> {
                         const SizedBox(height: 8),
                         // اسم المدرب
                         Text(
-                          teacher['full_name'],
+                          teacher['full_name'] ?? "",
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -168,10 +168,10 @@ class _TrainerDetailsPageState extends State<TrainerDetailsPage> {
                         return GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(
-                                context, CourseDetailsPage.routeName,
-                                arguments: {
-                                  teacher["courses"][index]["id"] as int,
-                                });
+                              context,
+                              CourseDetailsPage.routeName,
+                              arguments: teacher["courses"][index]["id"],
+                            );
                           },
                           child: Container(
                             width: double.infinity,

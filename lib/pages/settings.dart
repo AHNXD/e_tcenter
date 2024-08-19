@@ -1,4 +1,3 @@
-import 'package:e_tcenter/models/teacher.dart';
 import 'package:e_tcenter/pages/charge_wallet.dart';
 
 import 'package:flutter/material.dart';
@@ -39,7 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
               bottomRight: Radius.circular(30)),
           child: Container(
             color: appColor, // Replace with your desired color
-            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            padding: const EdgeInsets.only(bottom: 15),
             alignment: Alignment.bottomCenter,
             child: const Text(
               "الإعدادات",

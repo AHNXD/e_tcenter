@@ -28,7 +28,7 @@ class _ShowCoursesFromCategoryPageState
               bottomRight: Radius.circular(30)),
           child: Container(
             color: appColor, // Replace with your desired color
-            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            padding: const EdgeInsets.only(bottom: 15),
             alignment: Alignment.bottomCenter,
             child: Text(
               category["name"],
@@ -50,10 +50,11 @@ class _ShowCoursesFromCategoryPageState
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, CourseDetailsPage.routeName,
-                        arguments: {
-                          cources[index]["id"],
-                        });
+                    Navigator.pushNamed(
+                      context,
+                      CourseDetailsPage.routeName,
+                      arguments: cources[index]["id"],
+                    );
                   },
                   child: Container(
                     width: double.infinity,

@@ -2,7 +2,6 @@ import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/courseDetails.dart';
 import 'package:e_tcenter/services/apiService.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ShowTeacherCoursesPage extends StatefulWidget {
   static const routeName = '/ShowTeacherCourses';
@@ -29,7 +28,7 @@ class _ShowTeacherCoursesPageState extends State<ShowTeacherCoursesPage> {
               bottomRight: Radius.circular(30)),
           child: Container(
             color: appColor, //  يمكنك تغيير اللون
-            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            padding: const EdgeInsets.only(bottom: 15),
             alignment: Alignment.bottomCenter,
             child: const Text(
               'كورسات المدرس',
@@ -54,11 +53,11 @@ class _ShowTeacherCoursesPageState extends State<ShowTeacherCoursesPage> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, CourseDetailsPage.routeName,
-                          arguments: {
-                            "id": data[index]["id"],
-                            "teacher_id": data[index]["teacher_id"]
-                          });
+                      Navigator.pushNamed(
+                        context,
+                        CourseDetailsPage.routeName,
+                        arguments: data[index]["id"],
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(

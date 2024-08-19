@@ -3,6 +3,7 @@ import 'package:e_tcenter/pages/createCourse.dart';
 import 'package:e_tcenter/pages/TrainerDetailsScreen.dart';
 import 'package:e_tcenter/pages/charge_wallet.dart';
 import 'package:e_tcenter/pages/courseDetails.dart';
+import 'package:e_tcenter/pages/setYourIp.dart';
 import 'package:e_tcenter/pages/showCoursesFromCategory.dart';
 import 'package:e_tcenter/pages/showSubscribedCourses.dart';
 import 'package:e_tcenter/pages/showTeacherCourses.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
         ShowTeacherCoursesPage.routeName: (context) =>
             const ShowTeacherCoursesPage(),
         AddVideoPage.routeName: (context) => const AddVideoPage(),
+        SetYourIpPage.routeName: (context) => SetYourIpPage(),
       },
     );
   }

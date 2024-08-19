@@ -26,7 +26,7 @@ class _TrainersPageState extends State<TrainersPage> {
                 bottomRight: Radius.circular(30)),
             child: Container(
               color: appColor, //  يمكنك تغيير اللون
-              padding: const EdgeInsets.only(left: 20, bottom: 20),
+              padding: const EdgeInsets.only(bottom: 15),
               alignment: Alignment.bottomCenter,
               child: const Text(
                 'المعلمين',

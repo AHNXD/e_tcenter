@@ -72,7 +72,7 @@ class _AddVideoPageState extends State<AddVideoPage> {
               bottomRight: Radius.circular(30)),
           child: Container(
             color: appColor, // Replace with your desired color
-            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            padding: const EdgeInsets.only(bottom: 15),
             alignment: Alignment.bottomCenter,
             child: const Text(
               "اضافة فيديو",
@@ -93,9 +93,9 @@ class _AddVideoPageState extends State<AddVideoPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(onPressed: pickVideo, child: Text("Set Video")),
+                ElevatedButton(onPressed: pickVideo, child: const Text("Set Video")),
                 ElevatedButton(
-                    onPressed: pickImage, child: Text("Set Thumbnail"))
+                    onPressed: pickImage, child: const Text("Set Thumbnail"))
               ],
             )
           ],

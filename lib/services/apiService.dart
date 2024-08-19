@@ -124,7 +124,10 @@ class ApiService {
   }
 
   static Future getStudentWallet(int id) async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request(
         'GET', Uri.parse("$ip/student/${studentData.id}/wallet-value"));
 
@@ -147,7 +150,10 @@ class ApiService {
   }
 
   static Future getTeacherWallet(int id) async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request(
         'GET', Uri.parse("$ip/teacher/${teacherData.id}/wallet-value"));
 
@@ -170,7 +176,10 @@ class ApiService {
   }
 
   static Future chargeWallet(int amount) async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request(
         'POST', Uri.parse("$ip/student/${studentData.id}/add-money"));
 
@@ -185,7 +194,10 @@ class ApiService {
   }
 
   static Future transferToTeacher(int s_id, int t_id, int amount) async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request(
         'POST', Uri.parse("$ip/student/$s_id/transfer-to-teacher/$t_id"));
 
@@ -200,7 +212,10 @@ class ApiService {
   }
 
   static Future subscribe(int s_id, int c_id) async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request =
         http.Request('POST', Uri.parse("$ip/courses/$s_id/$c_id/subscribe"));
 
@@ -213,7 +228,10 @@ class ApiService {
   }
 
   static Future getAllCategories() async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request('GET', Uri.parse("$ip/getallcategries"));
 
     request.body = json.encode({});
@@ -230,7 +248,10 @@ class ApiService {
   }
 
   static Future getSubscribedCourses() async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request(
         'GET', Uri.parse("$ip/getSubscribedCourse/${studentData.id}"));
 
@@ -248,7 +269,10 @@ class ApiService {
   }
 
   static Future getCoursesByCategory(int id) async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request('GET', Uri.parse("$ip/searchCource/$id"));
 
     request.body = json.encode({});
@@ -265,7 +289,10 @@ class ApiService {
   }
 
   static Future getCourseDetail(int id) async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request('GET', Uri.parse("$ip/course/$id"));
 
     request.body = json.encode({});
@@ -282,7 +309,10 @@ class ApiService {
   }
 
   static Future getAllCourses() async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request('GET', Uri.parse("$ip/courses"));
 
     request.body = json.encode({});
@@ -320,7 +350,10 @@ class ApiService {
   }
 
   static Future getTeachersData() async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request('GET', Uri.parse("$ip/teacher/full-names"));
 
     request.body = json.encode({});
@@ -337,7 +370,10 @@ class ApiService {
   }
 
   static Future getTeacherData(int id) async {
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
     var request = http.Request('GET', Uri.parse("$ip/teacher/$id"));
 
     request.body = json.encode({});
@@ -376,19 +412,17 @@ class ApiService {
       ));
 
       // Handle thumbnail upload (if needed)
-      if (thumbnailFile != null) {
-        // Read thumbnail file as a stream (asynchronous)
-        final thumbnailStream = thumbnailFile.openRead();
+      // Read thumbnail file as a stream (asynchronous)
+      final thumbnailStream = thumbnailFile.openRead();
 
-        // Add thumbnail file to the request
-        request.files.add(http.MultipartFile(
-          'thumbnail',
-          thumbnailStream,
-          await thumbnailFile.length(), // Get file length asynchronously
-          filename: thumbnailFile.name,
-        ));
-      }
-
+      // Add thumbnail file to the request
+      request.files.add(http.MultipartFile(
+        'thumbnail',
+        thumbnailStream,
+        await thumbnailFile.length(), // Get file length asynchronously
+        filename: thumbnailFile.name,
+      ));
+    
       final response = await request.send();
       final responseBody = await response.stream.bytesToString();
 

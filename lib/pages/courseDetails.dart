@@ -25,29 +25,33 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
           return Scaffold(
             floatingActionButton: !isGuest
                 ? !isTeacher
-                    ? FloatingActionButton(
-                        onPressed: () async {
-                          int state =
-                              await ApiService.subscribe(studentData.id, id);
-                          if (state == 200) {
-                            state = await ApiService.getStudentWallet(
-                                studentData.id);
-                            message("Succes.", Colors.green, context);
-                          } else if (state == 400) {
-                            message(
-                                "You dont have enough money in your wallet.",
-                                Colors.red,
-                                context);
-                          } else {
-                            message(
-                                "There was an error with subscribtion please try again.",
-                                Colors.red,
-                                context);
-                          }
-                        },
-                        child: const Icon(
-                            Icons.add), // if the couse here make it Icon.check
-                      )
+                    ? !course["isSubscribed"]
+                        ? FloatingActionButton(
+                            onPressed: () async {
+                              int state = await ApiService.subscribe(
+                                  studentData.id, id);
+                              if (state == 200) {
+                                state = await ApiService.getStudentWallet(
+                                    studentData.id);
+
+                                message("Succes.", Colors.green, context);
+                                setState(() {});
+                              } else if (state == 400) {
+                                message(
+                                    "You dont have enough money in your wallet.",
+                                    Colors.red,
+                                    context);
+                              } else {
+                                message(
+                                    "There was an error with subscribtion please try again.",
+                                    Colors.red,
+                                    context);
+                              }
+                            },
+                            child: const Icon(Icons
+                                .add), // if the couse here make it Icon.check
+                          )
+                        : null
                     : FloatingActionButton(
                         onPressed: () async {
                           Navigator.pushNamed(context, AddVideoPage.routeName,
@@ -66,7 +70,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                     bottomRight: Radius.circular(30)),
                 child: Container(
                   color: appColor, // Replace with your desired color
-                  padding: const EdgeInsets.only(left: 20, bottom: 20),
+                  padding: const EdgeInsets.only(bottom: 15),
                   alignment: Alignment.bottomCenter,
                   child: Text(
                     course["course_name"],
@@ -93,6 +97,9 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 25)),
                   Text("Lang: ${course["category"]}",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 25)),
+                  Text("Students: ${course["studentsCount"]}",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 25)),
                   const Divider(
@@ -134,20 +141,39 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                             ),
                             isGuest
                                 ? const SizedBox()
-                                : IconButton(
-                                    onPressed: () {
-                                      videoToShow =
-                                          course["videos"][index]["video_path"];
-                                      Navigator.pushNamed(
-                                          context, ShowVideoPage.routeName,
-                                          arguments: course["videos"][index]
-                                              ["video_path"]);
-                                    },
-                                    icon: Icon(
-                                      Icons.play_arrow,
-                                      size: 64,
-                                      color: appColor,
-                                    ))
+                                : !isTeacher
+                                    ? course["isSubscribed"]
+                                        ? IconButton(
+                                            onPressed: () {
+                                              videoToShow = course["videos"]
+                                                  [index]["video_path"];
+                                              Navigator.pushNamed(context,
+                                                  ShowVideoPage.routeName,
+                                                  arguments: course["videos"]
+                                                      [index]["video_path"]);
+                                            },
+                                            icon: Icon(
+                                              Icons.play_arrow,
+                                              size: 64,
+                                              color: appColor,
+                                            ))
+                                        : const SizedBox()
+                                    : teacherData.id == course["teacherId"]
+                                        ? IconButton(
+                                            onPressed: () {
+                                              videoToShow = course["videos"]
+                                                  [index]["video_path"];
+                                              Navigator.pushNamed(context,
+                                                  ShowVideoPage.routeName,
+                                                  arguments: course["videos"]
+                                                      [index]["video_path"]);
+                                            },
+                                            icon: Icon(
+                                              Icons.play_arrow,
+                                              size: 64,
+                                              color: appColor,
+                                            ))
+                                        : const SizedBox()
                           ],
                         ),
                       );

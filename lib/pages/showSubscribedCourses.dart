@@ -25,7 +25,7 @@ class _ShowSubscribedCoursesPageState extends State<ShowSubscribedCoursesPage> {
             bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
         child: Container(
           color: appColor, // Replace with your desired color
-          padding: const EdgeInsets.only(left: 20, bottom: 20),
+          padding: const EdgeInsets.only(bottom: 15),
             alignment: Alignment.bottomCenter,
           child: const Text(
             "الكورسات المشترك بها",

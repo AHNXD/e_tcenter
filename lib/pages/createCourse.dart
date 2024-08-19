@@ -20,7 +20,7 @@ class _CourseFormState extends State<CreateCoursPage> {
   double rate = 0.0;
   var cat = [];
 
-  int? _selectedValue = null;
+  int? _selectedValue;
   final List<DropdownMenuItem<int>> _dropdownItems = [];
 
   void submitData() async {
@@ -61,7 +61,7 @@ class _CourseFormState extends State<CreateCoursPage> {
               bottomRight: Radius.circular(30)),
           child: Container(
             color: appColor, // Replace with your desired color
-            padding: const EdgeInsets.only(left: 20, bottom: 20),
+            padding: const EdgeInsets.only(bottom: 15),
             alignment: Alignment.bottomCenter,
             child: const Text(
               'انشاء كورس',

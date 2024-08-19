@@ -1,3 +1,4 @@
+import 'package:e_tcenter/pages/setYourIp.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tcenter/constatnt.dart';
 import 'package:e_tcenter/pages/home.dart';
@@ -190,6 +191,23 @@ class _LoginPageState extends State<LoginPage> {
                         'Guest',
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("You have to set th ip, "),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, SetYourIpPage.routeName);
+                          },
+                          child: Text(
+                            "click here.",
+                            style: TextStyle(color: appColor),
+                          ),
+                        )
+                      ],
                     ),
                   ],
                 ),
