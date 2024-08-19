@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class SetYourIpPage extends StatelessWidget {
   static const routeName = '/setIp';
   SetYourIpPage({super.key});
-  TextEditingController _controller = new TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class SetYourIpPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("EX: htttp://192.168.1.1:8000/api"),
+            const Text("EX: htttp://192.168.1.1:8000/api"),
             buildInputField(Icons.numbers, "Enter the IP", _controller)
           ],
         ),
